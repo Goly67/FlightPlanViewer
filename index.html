@@ -281,23 +281,23 @@ GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BET
     </div>
     <script>
         function displayFlightPlans() {
-            const flightPlansList = document.getElementById('flightPlansList');
-            const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-            if (flightPlans.length === 0) {
-                flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
-                return;
-            }
-            flightPlansList.innerHTML = flightPlans.map(plan => `
-                <div class="flight-plan">
-                    <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
-                    <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
-                    <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-                    <p><strong>SID:</strong> ${plan.sid}</p>
-                    <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-                    <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
-                </div>
-            `).join('');
-        }
+    const flightPlansList = document.getElementById('flightPlansList');
+    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    if (flightPlans.length === 0) {
+        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+        return;
+    }
+    flightPlansList.innerHTML = flightPlans.map(plan => `
+        <div class="flight-plan">
+            <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+            <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+            <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
+            <p><strong>SID:</strong> ${plan.sid}</p>
+            <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+            <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
+        </div>
+    `).join('');
+}
 
         function displayNotes() {
             const notesList = document.getElementById('notesList');
