@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://www.iconpacks.net/icons/2/free-airplane-icon-1755-thumb.png" type="image/x-icon">
+    <link rel="icon" href="" type="image/x-icon">
     <title>Flight Plans</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        
+
         :root {
             --primary-color: #3498db;
             --secondary-color: #2c3e50;
@@ -171,6 +171,49 @@
             background-color: #2980b9;
         }
 
+        .copy-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .copy-button:hover {
+            background-color: #3e8e41; /* Darker green */
+        }
+
+        .atis-section {
+            margin-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .atis-example {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .atis-example:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .atis-example p {
+            margin: 0.5rem 0;
+            color: var(--text-color);
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 1rem;
@@ -220,23 +263,35 @@
                 <button onclick="addNote()">Add Note</button>
             </div>
         </div>
-    </div>
+        <div class="atis-section">
+            <h2>ATIS Example</h2>
+            <div class="atis-example">
+                <p>
+                    Gran Canaria (GCLP)
 
+GCLP_APP [121.300]: @xaie9  
+
+[**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
+
+GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
+                </p>
+            </div>
+            <button class="copy-button" onclick="copyAtis()">Copy</button>
+        </div>
+    </div>
     <script>
         function displayFlightPlans() {
             const flightPlansList = document.getElementById('flightPlansList');
             const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-
             if (flightPlans.length === 0) {
                 flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
                 return;
             }
-
             flightPlansList.innerHTML = flightPlans.map(plan => `
                 <div class="flight-plan">
                     <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
-                    <p><strong>Flight Type:</strong> ${plan.flightType}</p>
+                    <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> ${plan.sid}</p>
                     <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
                     <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
@@ -247,12 +302,10 @@
         function displayNotes() {
             const notesList = document.getElementById('notesList');
             const notes = JSON.parse(localStorage.getItem('notes')) || [];
-
             if (notes.length === 0) {
                 notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
                 return;
             }
-
             notesList.innerHTML = `
                 <ul class="notes-list">
                     ${notes.map((note, index) => `
@@ -284,9 +337,31 @@
             displayNotes();
         }
 
+        function copyAtis() {
+            const atisExample = `Gran Canaria (GCLP)
+
+GCLP_APP [121.300]: @xaie9  
+
+[**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
+
+GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...`;
+
+            navigator.clipboard.writeText(atisExample)
+                .then(() => {
+                    // Optional: Show a success message
+                    alert('ATIS example copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        }
+
         // Initial display
         displayFlightPlans();
         displayNotes();
+
+        // Add Atis Example
+        // (This part is now handled in the copyAtis function)
     </script>
 </body>
 </html>
