@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Plans and Cool Notes</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        h1, h2 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-top: 2rem;
+        }
+
+        .flight-plan {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .flight-plan:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .flight-plan h3 {
+            color: var(--secondary-color);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .flight-plan p {
+            margin: 0.5rem 0;
+            color: var(--text-color);
+        }
+
+        .no-plans, .no-notes {
+            text-align: center;
+            color: var(--text-color);
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+        }
+
+        .notes-section {
+            margin-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .notes-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .note-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .note-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-note {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .delete-note:hover {
+            background-color: #c0392b;
+        }
+
+        .add-note {
+            display: flex;
+            margin-top: 1rem;
+        }
+
+        .add-note input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .add-note button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .add-note button:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .flight-plan h3 {
+                font-size: 1.2rem;
+            }
+
+            .add-note {
+                flex-direction: column;
+            }
+
+            .add-note input,
+            .add-note button {
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            .add-note button {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Flight Plans</h1>
+        <div id="flightPlansList"></div>
+        <div class="notes-section">
+            <h2>Notes</h2>
+            <div id="notesList"></div>
+            <div class="add-note">
+                <input type="text" id="newNote" placeholder="Add a new note">
+                <button onclick="addNote()">Add Note</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function displayFlightPlans() {
+            const flightPlansList = document.getElementById('flightPlansList');
+            const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+
+            if (flightPlans.length === 0) {
+                flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+                return;
+            }
+
+            flightPlansList.innerHTML = flightPlans.map(plan => `
+                <div class="flight-plan">
+                    <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+                    <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+                    <p><strong>Flight Type:</strong> ${plan.flightType}</p>
+                    <p><strong>SID:</strong> ${plan.sid}</p>
+                    <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+                    <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
+                </div>
+            `).join('');
+        }
+
+        function displayNotes() {
+            const notesList = document.getElementById('notesList');
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+            if (notes.length === 0) {
+                notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
+                return;
+            }
+
+            notesList.innerHTML = `
+                <ul class="notes-list">
+                    ${notes.map((note, index) => `
+                        <li class="note-item">
+                            <span>${note}</span>
+                            <button class="delete-note" onclick="deleteNote(${index})">Delete</button>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+        }
+
+        function addNote() {
+            const newNoteInput = document.getElementById('newNote');
+            const noteText = newNoteInput.value.trim();
+            if (noteText) {
+                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+                notes.push(noteText);
+                localStorage.setItem('notes', JSON.stringify(notes));
+                newNoteInput.value = '';
+                displayNotes();
+            }
+        }
+
+        function deleteNote(index) {
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+            notes.splice(index, 1);
+            localStorage.setItem('notes', JSON.stringify(notes));
+            displayNotes();
+        }
+
+        // Initial display
+        displayFlightPlans();
+        displayNotes();
+    </script>
+</body>
+</html>
