@@ -41,6 +41,9 @@
             max-width: 800px;
             margin: 0 auto;
             backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            min-height: 400px; /* Adjust this value as needed */
         }
 
         h1, h2 {
@@ -58,7 +61,7 @@
 
         h2 {
             font-size: 2rem;
-            margin-top: 2rem;
+            margin-top: 0; /* Remove top margin */
         }
 
         .flight-plan {
@@ -97,9 +100,20 @@
         }
 
         .notes-section {
-            margin-top: 2rem;
+            margin-top: auto; /* Push the notes section to the bottom */
             border-top: 2px solid var(--primary-color);
             padding-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .no-notes {
+            text-align: center;
+            color: var(--text-color);
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: 1rem; /* Reduce top margin */
         }
 
         .notes-list {
@@ -185,6 +199,7 @@
 
             h2 {
                 font-size: 1.5rem;
+                margin-top: -290px;
             }
 
             .flight-plan h3 {
