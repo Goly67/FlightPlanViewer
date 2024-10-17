@@ -293,7 +293,8 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
         flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
         return;
     }
-    flightPlansList.innerHTML = flightPlans.map(plan => 
+
+    flightPlansList.innerHTML = flightPlans.map(plan => `
         <div class="flight-plan">
             <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
             <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
@@ -302,7 +303,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
             <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
         </div>
-    ).join('');
+    `).join('');
 }
 
         function displayNotes() {
