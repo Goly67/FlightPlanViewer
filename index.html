@@ -362,22 +362,22 @@ GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBI
                 });
         }
 
-       // Listen for localStorage changes (even across different tabs)
-window.addEventListener('storage', function(event) {
-    if (event.key === 'flightPlans') {
-        // Automatically refresh the displayed flight plans
-        displayFlightPlans();
-    }
+       // Listen for the custom event that signals a flight plan update
+window.addEventListener('flightPlanUpdated', function() {
+    // Refresh the flight plans displayed on the page
+    displayFlightPlans();
 });
 
-// Existing function to display flight plans
+// Function to display the flight plans (assuming flightPlansList is a container for flight plans)
 function displayFlightPlans() {
     const flightPlansList = document.getElementById('flightPlansList');
     const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    
     if (flightPlans.length === 0) {
-        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+        flightPlansList.innerHTML = '<p>No flight plans submitted yet.</p>';
         return;
     }
+
     flightPlansList.innerHTML = flightPlans.map(plan => `
         <div class="flight-plan">
             <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
@@ -390,7 +390,7 @@ function displayFlightPlans() {
     `).join('');
 }
 
-// Initial load to display any existing flight plans when the page first opens
+// Initial call to display flight plans when the page first loads
 displayFlightPlans();
 
         displayNotes();
