@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://www.iconpacks.net/icons/2/free-airplane-icon-1755-thumb.png" type="image/x-icon">
+    <link rel="icon" href="" type="image/x-icon">
     <title>Flight Plans</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -69,7 +69,6 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             transition: all 0.3s ease;
-            position: relative; /* To position the airplane */
         }
 
         .flight-plan:hover {
@@ -215,49 +214,6 @@
             color: var(--text-color);
         }
 
-        .airplane {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 50px;
-            height: 25px;
-            background-color: #333;
-            transform: rotate(45deg);
-            border-radius: 5px 0 0 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .airplane:hover {
-            transform: rotate(45deg) scale(1.1);
-        }
-
-        .airplane-tail {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 10px;
-            height: 15px;
-            background-color: #333;
-            transform: rotate(45deg);
-            border-radius: 5px 0 0 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .airplane-tail:hover {
-            transform: rotate(45deg) scale(1.1);
-        }
-
-        .airplane::before {
-            content: "";
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            width: 10px;
-            height: 10px;
-            background-color: #333;
-            border-radius: 50%;
-        }
-
         @media (max-width: 600px) {
             body {
                 padding: 1rem;
@@ -292,11 +248,6 @@
             .add-note button {
                 margin-top: 0.5rem;
             }
-
-            .airplane {
-                width: 30px;
-                height: 15px;
-            }
         }
     </style>
 </head>
@@ -325,10 +276,10 @@ GCLP_APP [121.300]: @xaie9
 [**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
 <br/>
 <br/>
-GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBILITY 10 OR MORE KILOMETERS...  FEW CLOUDS AT 2500, SCATTERED CLOUDS AT 6000...  TEMPERATURE 27, DEWPOINT 22...  QNH 1017, ALTIMETER 3004...  VISUAL APPROACHES IN USE...  LANDING RUNWAY 21R...  DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION H...
+GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
 <br/>
 <br/>
-INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORTH", thats wrong. Make it like "ARRIVING SOUTHWEST, DEPARTING AT SOUTHWEST", this is the correct one.
+IMPORTANT: "DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. "DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.
                 </p>
             </div>
             <button class="copy-button" onclick="copyAtis()">Copy</button>
@@ -347,11 +298,9 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
                     <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-                    <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
+                    <p><strong>SID:</strong> ${plan.sid}</p>
                     <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-                    <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned'}</p>
-                    <div class="airplane"></div>
-                    <div class="airplane-tail"></div>
+                    <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
                 </div>
             `).join('');
         }
@@ -417,9 +366,8 @@ GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BET
         displayFlightPlans();
         displayNotes();
 
-        window.addEventListener('flightPlanUpdated', function() {
-            displayFlightPlans(); // Refresh the flight plan display
-        });
+        // Add Atis Example
+        // (This part is now handled in the copyAtis function)
     </script>
 </body>
 </html>
