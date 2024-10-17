@@ -362,12 +362,35 @@ GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBI
                 });
         }
 
-       // Listen for the custom 'flightPlanUpdated' event to reload flight plans when submitted
-window.addEventListener('flightPlanUpdated', function () {
-    displayFlightPlans();
+       // Listen for localStorage changes (even across different tabs)
+window.addEventListener('storage', function(event) {
+    if (event.key === 'flightPlans') {
+        // Automatically refresh the displayed flight plans
+        displayFlightPlans();
+    }
 });
 
-// Initial call to display flight plans
+// Existing function to display flight plans
+function displayFlightPlans() {
+    const flightPlansList = document.getElementById('flightPlansList');
+    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    if (flightPlans.length === 0) {
+        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+        return;
+    }
+    flightPlansList.innerHTML = flightPlans.map(plan => `
+        <div class="flight-plan">
+            <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+            <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+            <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
+            <p><strong>SID:</strong> ${plan.sid}</p>
+            <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+            <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
+        </div>
+    `).join('');
+}
+
+// Initial load to display any existing flight plans when the page first opens
 displayFlightPlans();
 
         displayNotes();
