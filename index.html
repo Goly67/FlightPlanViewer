@@ -276,7 +276,7 @@ GCLP_APP [121.300]: @xaie9
 [**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
 <br/>
 <br/>
-GRAN CANARIA AIRPORT INFORMATION H... 1400Z... WIND 040 AT 10 KNOTS... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 2500, SCATTERED CLOUDS AT 6000... TEMPERATURE 27, DEWPOINT 22... QNH 1017, ALTIMETER 3004... VISUAL APPROACHES IN USE... LANDING RUNWAY 21R... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION H...
+GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBILITY 10 OR MORE KILOMETERS...  FEW CLOUDS AT 2500, SCATTERED CLOUDS AT 6000...  TEMPERATURE 27, DEWPOINT 22...  QNH 1017, ALTIMETER 3004...  VISUAL APPROACHES IN USE...  LANDING RUNWAY 21R...  DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION H...
 <br/>
 <br/>
 INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORTH", thats wrong. Make it like "ARRIVING SOUTHWEST, DEPARTING AT SOUTHWEST", this is the correct one.
@@ -295,7 +295,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             }
             flightPlansList.innerHTML = flightPlans.map(plan => `
                 <div class="flight-plan">
-                    <h3>${plan.callsign} - <span style="font-weight:normal">${plan.departure}</span> to <span style="font-weight:normal">${plan.arrival}</span></h3>
+                    <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
