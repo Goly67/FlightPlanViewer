@@ -362,36 +362,53 @@ GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBI
                 });
         }
 
-       // Listen for the custom event that signals a flight plan update
-window.addEventListener('flightPlanUpdated', function() {
-    // Refresh the flight plans displayed on the page
-    displayFlightPlans();
-});
+    // Function to display the flight plans
+    function displayFlightPlans() {
+        const flightPlansList = document.getElementById('flightPlansList');
+        const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
 
-// Function to display the flight plans (assuming flightPlansList is a container for flight plans)
-function displayFlightPlans() {
-    const flightPlansList = document.getElementById('flightPlansList');
-    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-    
-    if (flightPlans.length === 0) {
-        flightPlansList.innerHTML = '<p>No flight plans submitted yet.</p>';
-        return;
+        if (flightPlans.length === 0) {
+            flightPlansList.innerHTML = '<p>No flight plans submitted yet.</p>';
+            return;
+        }
+
+        flightPlansList.innerHTML = flightPlans.map((plan, index) => `
+            <div class="flight-plan">
+                <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
+                <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
+                <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
+                <p><strong>SID:</strong>
+                    <input type="text" id="sid-${index}" value="${plan.sid}" />
+                </p>
+                <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
+                <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
+                <button onclick="saveFlightPlan(${index})">Save Changes</button>
+            </div>
+        `).join('');
     }
 
-    flightPlansList.innerHTML = flightPlans.map(plan => `
-        <div class="flight-plan">
-            <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
-            <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
-            <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-            <p><strong>SID:</strong> ${plan.sid}</p>
-            <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-            <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
-        </div>
-    `).join('');
-}
+    // Function to save the changes made to the flight plan
+    function saveFlightPlan(index) {
+        const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+        const sidInput = document.getElementById(`sid-${index}`);
 
-// Initial call to display flight plans when the page first loads
-displayFlightPlans();
+        if (sidInput) {
+            flightPlans[index].sid = sidInput.value; // Update the SID with the new value
+            localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
+
+            // Notify the user of success
+            alert('Flight plan updated successfully!');
+
+            // Optionally refresh the list to show updated values
+            displayFlightPlans();
+        }
+    }
+
+    // Listen for flightPlanUpdated event
+    window.addEventListener('flightPlanUpdated', displayFlightPlans);
+
+    // Initial call to display flight plans when the page first loads
+    displayFlightPlans();
 
         displayNotes();
 
