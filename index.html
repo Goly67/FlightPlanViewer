@@ -83,6 +83,8 @@
             margin-bottom: 1rem;
             font-size: 1.5rem;
             font-weight: 600;
+            display: flex; /* Align departure and arrival airports */
+            align-items: center; /* Align vertically */
         }
 
         .flight-plan p {
@@ -228,6 +230,15 @@
             transform: rotate(45deg); /* Adjust the angle as needed */
         }
 
+        /* Styles for departure and arrival airports */
+        .departure-airport {
+            margin-right: 10px; /* Space between departure and arrival */
+        }
+
+        .arrival-airport {
+            font-weight: bold; /* Make arrival airport stand out */
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 1rem;
@@ -310,7 +321,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             flightPlansList.innerHTML = flightPlans.map(plan => `
                 <div class="flight-plan">
                     <div class="plane-icon"></div>
-                    <h3>${plan.callsign}</h3>
+                    <h3><span class="departure-airport">${plan.departure}</span> <span class="arrival-airport">${plan.arrival}</span></h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
