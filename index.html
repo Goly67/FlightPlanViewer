@@ -366,8 +366,9 @@ GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BET
         displayFlightPlans();
         displayNotes();
 
-        // Add Atis Example
-        // (This part is now handled in the copyAtis function)
+        window.addEventListener('flightPlanUpdated', function() {
+            displayFlightPlans(); // Refresh the flight plan display
+        });
     </script>
 </body>
 </html>
