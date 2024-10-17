@@ -69,7 +69,6 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             transition: all 0.3s ease;
-            position: relative; /* To position the plane icon */
         }
 
         .flight-plan:hover {
@@ -215,28 +214,6 @@
             color: var(--text-color);
         }
 
-        /* Plane icon styles */
-        .plane-icon {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            width: 40px;
-            height: 40px;
-            background-image: url('https://www.iconpacks.net/icons/2/free-airplane-icon-1755-thumb.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            transform: rotate(45deg); /* Adjust the angle as needed */
-        }
-
-        /* Styles for departure and arrival airports */
-        .departure-airport {
-            margin-right: 10px; /* Space between departure and arrival */
-        }
-
-        .arrival-airport {
-            font-weight: bold; /* Make arrival airport stand out */
-        }
-
         @media (max-width: 600px) {
             body {
                 padding: 1rem;
@@ -318,10 +295,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             }
             flightPlansList.innerHTML = flightPlans.map(plan => `
                 <div class="flight-plan">
-                    <div class="plane-icon"></div>
-                    <h3>${plan.callsign}</h3>
-                    <p><strong>Departure:</strong> ${plan.departure}</p>
-                    <p><strong>Arrival:</strong> ${plan.arrival}</p>
+                    <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
