@@ -293,7 +293,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
         flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
         return;
     }
-    flightPlansList.innerHTML = flightPlans.map(plan => `
+    flightPlansList.innerHTML = flightPlans.map(plan => 
         <div class="flight-plan">
             <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
             <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
@@ -302,7 +302,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
             <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
         </div>
-    `).join('');
+    ).join('');
 }
 
         function displayNotes() {
@@ -312,16 +312,16 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
                 notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
                 return;
             }
-            notesList.innerHTML = `
+            notesList.innerHTML = 
                 <ul class="notes-list">
-                    ${notes.map((note, index) => `
+                    ${notes.map((note, index) => 
                         <li class="note-item">
                             <span>${note}</span>
                             <button class="delete-note" onclick="deleteNote(${index})">Delete</button>
                         </li>
-                    `).join('')}
+                    ).join('')}
                 </ul>
-            `;
+            ;
         }
 
         function addNote() {
@@ -344,13 +344,13 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
         }
 
         function copyAtis() {
-            const atisExample = `Gran Canaria (GCLP)
+            const atisExample = Gran Canaria (GCLP)
 
 GCLP_APP [121.300]: @xaie9  
 
 [**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
 
-GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBILITY 10 OR MORE KILOMETERS...  FEW CLOUDS AT 2500, SCATTERED CLOUDS AT 6000...  TEMPERATURE 27, DEWPOINT 22...  QNH 1017, ALTIMETER 3004...  VISUAL APPROACHES IN USE...  LANDING RUNWAY 21R...  DEPARTING RUNWAY 21L...  ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION H... `;
+GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBILITY 10 OR MORE KILOMETERS...  FEW CLOUDS AT 2500, SCATTERED CLOUDS AT 6000...  TEMPERATURE 27, DEWPOINT 22...  QNH 1017, ALTIMETER 3004...  VISUAL APPROACHES IN USE...  LANDING RUNWAY 21R...  DEPARTING RUNWAY 21L...  ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION H... ;
 
             navigator.clipboard.writeText(atisExample)
                 .then(() => {
@@ -362,33 +362,8 @@ GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBI
                 });
         }
 
-    function displayFlightPlans() {
-        const flightPlansDisplay = document.getElementById('flightPlansDisplay');
-        const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-
-        if (flightPlans.length === 0) {
-            flightPlansDisplay.innerHTML = '<p>No flight plans submitted yet.</p>';
-            return;
-        }
-
-        flightPlansDisplay.innerHTML = flightPlans.map(plan => `
-            <div class="flight-plan">
-                <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
-                <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
-                <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-                <p><strong>SID:</strong> ${plan.sid}</p>
-                <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-                <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned.'}</p>
-            </div>
-        `).join('');
-    }
-
-    // Listen for flightPlanUpdated event
-    window.addEventListener('flightPlanUpdated', displayFlightPlans);
-
-    // Initial call to display flight plans when the page first loads
-    displayFlightPlans();
-
+        // Initial display
+        displayFlightPlans();
         displayNotes();
 
         // Add Atis Example
