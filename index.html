@@ -69,7 +69,6 @@
             padding: 1.5rem;
             margin-bottom: 1.5rem;
             transition: all 0.3s ease;
-            position: relative; /* To position the airplane */
         }
 
         .flight-plan:hover {
@@ -215,16 +214,21 @@
             color: var(--text-color);
         }
 
+        .airplane-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
         .airplane {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
             width: 50px;
             height: 25px;
             background-color: #333;
             transform: rotate(45deg);
             border-radius: 5px 0 0 5px;
             transition: transform 0.3s ease;
+            margin-right: 1rem;
         }
 
         .airplane:hover {
@@ -232,9 +236,6 @@
         }
 
         .airplane-tail {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
             width: 10px;
             height: 15px;
             background-color: #333;
@@ -256,6 +257,11 @@
             height: 10px;
             background-color: #333;
             border-radius: 50%;
+        }
+
+        .airplane-text {
+            font-size: 1.2rem;
+            font-weight: 600;
         }
 
         @media (max-width: 600px) {
@@ -297,6 +303,11 @@
                 width: 30px;
                 height: 15px;
             }
+
+            .airplane-section {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -333,6 +344,11 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             </div>
             <button class="copy-button" onclick="copyAtis()">Copy</button>
         </div>
+        <div class="airplane-section">
+            <div class="airplane"></div>
+            <div class="airplane-tail"></div>
+            <span class="airplane-text">EGKK airplane pointing to MDPC</span>
+        </div>
     </div>
     <script>
         function displayFlightPlans() {
@@ -350,8 +366,6 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
                     <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
                     <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned'}</p>
-                    <div class="airplane"></div>
-                    <div class="airplane-tail"></div>
                 </div>
             `).join('');
         }
