@@ -298,9 +298,9 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
                     <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
-                    <p><strong>SID:</strong> ${plan.sid}</p>
+                    <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
                     <p><strong>Cruising Level:</strong> ${plan.cruisingLevel}</p>
-                    <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
+                    <p><strong>Squawk:</strong> ${plan.squawk || 'To be assigned'}</p>
                 </div>
             `).join('');
         }
