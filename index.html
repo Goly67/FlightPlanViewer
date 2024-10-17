@@ -321,7 +321,7 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
             flightPlansList.innerHTML = flightPlans.map(plan => `
                 <div class="flight-plan">
                     <div class="plane-icon"></div>
-                    <h3><span class="departure-airport">${plan.departure}</span> <span class="arrival-airport">${plan.arrival}</span></h3>
+                    <h3>${plan.callsign}</h3>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
