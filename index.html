@@ -404,10 +404,16 @@ function editNote(index) {
     const noteItem = document.querySelectorAll('.note-item')[index];
     const noteText = noteItem.querySelector('.note-text');
     const editContainer = noteItem.querySelector('.edit-container');
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
 
     // Toggle visibility
     noteText.style.display = 'none';
     editContainer.style.display = 'block';
+
+    // Hide the Edit and Delete buttons
+    editButton.style.display = 'none';
+    deleteButton.style.display = 'none';
 }
 
 function updateNote(index) {
@@ -418,16 +424,29 @@ function updateNote(index) {
 
     // Toggle visibility back
     editNote(index); // Call editNote to toggle back
+
+    // Show the Edit and Delete buttons again
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
+    editButton.style.display = 'block';
+    deleteButton.style.display = 'block';
 }
 
 function cancelEdit(index) {
     const noteItem = document.querySelectorAll('.note-item')[index];
     const noteText = noteItem.querySelector('.note-text');
     const editContainer = noteItem.querySelector('.edit-container');
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
 
     // Toggle visibility back
     noteText.style.display = 'block';
     editContainer.style.display = 'none';
+
+    // Show the Edit and Delete buttons again
+    editButton.style.display = 'block';
+    deleteButton.style.display = 'block';
 }
 
 function copyAtis() {
