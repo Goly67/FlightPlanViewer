@@ -362,8 +362,14 @@ GRAN CANARIA AIRPORT INFORMATION H...  1400Z...  WIND 040 AT 10 KNOTS...  VISIBI
                 });
         }
 
-        // Initial display
-        displayFlightPlans();
+       // Listen for the custom 'flightPlanUpdated' event to reload flight plans when submitted
+window.addEventListener('flightPlanUpdated', function () {
+    displayFlightPlans();
+});
+
+// Initial call to display flight plans
+displayFlightPlans();
+
         displayNotes();
 
         // Add Atis Example
