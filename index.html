@@ -83,8 +83,6 @@
             margin-bottom: 1rem;
             font-size: 1.5rem;
             font-weight: 600;
-            display: flex; /* Align departure and arrival airports */
-            align-items: center; /* Align vertically */
         }
 
         .flight-plan p {
@@ -322,6 +320,8 @@ INFORMATION: Don't make the direction like "ARRIVING TO SOUTH, DEPARTING TO NORT
                 <div class="flight-plan">
                     <div class="plane-icon"></div>
                     <h3>${plan.callsign}</h3>
+                    <p><strong>Departure:</strong> ${plan.departure}</p>
+                    <p><strong>Arrival:</strong> ${plan.arrival}</p>
                     <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
                     <p><strong>Flight Rule Type:</strong> ${plan.flightRule}</p>
                     <p><strong>SID:</strong> <span id="sid-${plan.id}">${plan.sid}</span></p>
