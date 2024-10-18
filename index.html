@@ -314,6 +314,14 @@ h2 {
             </div>
         </div>
         <div class="atis-section">
+            <h2>Project flight Server</h2>
+            <div class="atis-example">
+                <p>
+                    31xxRy8Zpy
+                </p>
+            </div>
+            <button class="copy-button" onclick="copyServer()">Copy</button>
+        <div class="atis-section">
             <h2>ATIS Example</h2>
             <div class="atis-example">
                 <p>
@@ -462,6 +470,19 @@ GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BET
         .then(() => {
             // Optional: Show a success message
             alert('ATIS example copied to clipboard!');
+        })
+        .catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+}
+
+function copyServer() {
+    const Server = `31xxRy8Zpy`;
+
+    navigator.clipboard.writeText(Server)
+        .then(() => {
+            // Optional: Show a success message
+            alert('Server copied to clipboard!');
         })
         .catch(err => {
             console.error('Failed to copy: ', err);
