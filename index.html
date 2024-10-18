@@ -207,6 +207,34 @@ h2 {
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     transition: all 0.3s ease;
+    display: flex; /* Enable flexbox for horizontal alignment */
+    justify-content: space-between; /* Distribute space between elements */
+    align-items: center; /* Vertically align items */
+}
+
+.copy-button {
+    background-color: var(--button-color); /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 0; /* Remove default margins */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+    background-color: var(--button-hover-color); /* Darker green */
+}
+
+.atis-example p {
+    margin: 0.5rem 0;
+    color: var(--text-color);
+    margin-right: 10px; /* Add some spacing between the paragraph and the button */
 }
 
 .atis-example:hover {
@@ -214,10 +242,6 @@ h2 {
     transform: translateY(-5px);
 }
 
-.atis-example p {
-    margin: 0.5rem 0;
-    color: var(--text-color);
-}
 
 .back-button {
     display: block;
@@ -333,11 +357,13 @@ h2 {
             <h2>Project flight Server</h2>
             <div class="atis-example">
                 <p>
-                    Server ID: 31xxRy8Zpy <br/>
-                    Password: PUBLICATC
-                </p>
+31xxRy8Zpy</p>
+                <button class="copy-button" onclick="copyServer()">Copy</button> </div>
+            <div class="atis-example">
+                <p>
+PUBLICATC</p>
+                <button class="copy-button" onclick="copyPassword()">Copy</button>
             </div>
-            <button class="copy-button" onclick="copyServer()">Copy</button>
         <div class="atis-section">
             <h2>ATIS Example</h2>
             <div class="atis-example">
@@ -356,8 +382,8 @@ GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BET
 <br/>
 IMPORTANT: "DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. "DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.
                 </p>
+                <button class="copy-button" onclick="copyAtis()">Copy</button>
             </div>
-            <button class="copy-button" onclick="copyAtis()">Copy</button>
         </div>
         <a href="https://goly67.github.io/FlightPlanner/" class="back-button">Back to Flight Planner</a>
     </div>
@@ -518,6 +544,43 @@ function cancelEdit(index) {
     editButton.style.display = 'block';
     deleteButton.style.display = 'block';
 }
+
+function copyPassword() {
+  const passwordText = document.querySelector('.atis-example:nth-of-type(2) p').textContent; 
+  navigator.clipboard.writeText(passwordText)
+    .then(() => {
+      alert('Password information copied to clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+}
+
+function copyServer() {
+  const serverText = document.querySelector('.atis-example:first-of-type p').textContent; // Corrected selector
+  navigator.clipboard.writeText(serverText)
+    .then(() => {
+      // Optional: Display a success message 
+      alert('Server information copied to clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+}
+
+function copyAtis() {
+  const atisText = document.querySelector('.atis-example:last-of-type p').textContent; // Corrected selector
+  navigator.clipboard.writeText(atisText)
+    .then(() => {
+      // Optional: Display a success message 
+      alert('ATIS example copied to clipboard!');
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+}
+
+// ... (rest of the code)
 
 // Initial display
 displayFlightPlans();
