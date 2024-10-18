@@ -572,40 +572,32 @@ function cancelEdit(index) {
     deleteButton.style.display = 'block';
 }
 
-function copyPassword() {
-  const passwordText = document.querySelector('.atis-example:nth-of-type(2) p').textContent; 
-  navigator.clipboard.writeText(passwordText)
-    .then(() => {
-      alert('Password information copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-}
-
 function copyServer() {
-  const serverText = document.querySelector('.atis-example:first-of-type p').textContent; // Corrected selector
-  navigator.clipboard.writeText(serverText)
-    .then(() => {
-      // Optional: Display a success message 
-      alert('Server information copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-}
+        const textToCopy = "31xxRy8Zpy"; // The text you want to copy
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert("Server ID copied to clipboard!");
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
 
-function copyAtis() {
-  const atisText = document.querySelector('.atis-example:last-of-type p').textContent; // Corrected selector
-  navigator.clipboard.writeText(atisText)
-    .then(() => {
-      // Optional: Display a success message 
-      alert('ATIS example copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
-    });
-}
+    function copyPassword() {
+        const textToCopy = "PUBLICATC"; // The text you want to copy
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert("Password copied to clipboard!");
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
+    function copyAtis() {
+        const textToCopy = `Gran Canaria (GCLP)\nGCLP_APP [121.300]: @xaie9\n[CLICK HERE TO FILL UP FLIGHT PLAN](https://forms.gle/WfpsCb9wpCvrbcSc6)`;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert("ATIS information copied to clipboard!");
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
 
 // ... (rest of the code)
 
