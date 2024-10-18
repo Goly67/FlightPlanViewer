@@ -355,10 +355,19 @@ h2 {
             </div>
         </div>
         <div class="atis-section">
-            <h2>Ground Chart</h2> <!--Change the image for the GROUND CHART when changing airports-->
-            <img src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA=w740" alt="Flight Image" style="display: block; margin: 2rem auto; max-width: 100%; height: auto; border-radius: 5px;">
-            <h3 style="text-align: center; margin-top: -1.3rem; margin-bottom: -1rem; font-size: 1.3rem;">Change the image of the GROUND CHART if changing airports.</h3>
+            <h2>Ground Movement Chart</h2>
+            <label for="groundChartSelector" style="display: block; text-align: center; margin-top: -1rem; margin-bottom: 1rem; font-size: 1.3rem;">Choose Ground Movement Chart Image:</label>
+            <select id="groundChartSelector" onchange="updateGroundChart()" style="width: 100%; padding: 0.75rem; border: 2px solid var(--primary-color); border-radius: 5px; margin-bottom: -1.3rem;">
+                <option value="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"><h2>GCLP - GRAN CANARIA</h2></option>
+                <option value="https://lh6.googleusercontent.com/3yOmKryoISuUb2AiJoyx8Q0LUkHXzIeXaITai9S-KONAMphWPrUjyRbiexsEQz3BUtHsVeTViAhJ0BokD8P6DVCRZ67xkZoGnGbTRkxQ_NOubDuUVXwPzbgSGuBXPMXgTQ=w740"><h2>LEMH - MENORCA</h2></option>
+                <option value="https://lh5.googleusercontent.com/vmbCHfImd6Qv4qpOwJu2fTZ39NTLkNN2rVocTroq50cwZAszqTjxQOMpTXyGJuH5dwHk_tbm9mpOjSrmtoFUWHa4T7u_Zw81A37dMYBd_7rVL92divF1QyOc2sSOBLtSeg=w740"><h2>EFKT - KITTILA</h2></option>
+                <option value="https://lh3.googleusercontent.com/C2_fk7YcIxDezR9Zw9yGy_vXcqPcPiHWYtx90faKte0w7st9jZxpYMGtBxEBCnKq7ZoPI--8WR7mGCRfFmvfbko_UyT54RnfKtyIaTiJgoCBD_VhzLbiwCvrRodCvqoc1A=w740"><h2>MDPC - PUNTA CANA</h2></option>
+                <option value="https://lh5.googleusercontent.com/unwUO92__aQ8C7GF8NqYfXAYWhJ_VEhHeaD9UT21xEwEarOfElU36XF-VJaX9e7cArZ65XMMt4w_okG67lb6jlM0-5A2Ky85-ylLd3_j6KYtS--VMRStUTMis0hH4LI3hA=w740"><h2>EGKK - Gatwick</h2></option>
+            </select>
+            <img id="groundChartImage" src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA" alt="Flight Image" style="display: block; margin: 2rem auto; max-width: 100%; height: auto; border-radius: 5px;">
         </div>
+        
+        
         <div class="atis-section">
             <h2>Project flight Server</h2>
             <div class="atis-example">
@@ -391,6 +400,32 @@ IMPORTANT: "DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. "DEP SOUTHWEST, ARR SOUT
         </div>
     </div>
     <script>
+function updateGroundChart() {
+        const selectElement = document.getElementById('groundChartSelector');
+        const imageElement = document.getElementById('groundChartImage');
+        const selectedImage = selectElement.value;
+        
+        // Update image source to the selected option
+        imageElement.src = selectedImage;
+
+        // Save the selected image URL in localStorage
+        localStorage.setItem('selectedGroundChart', selectedImage);
+    }
+
+    // Function to load the saved image from localStorage on page load
+    function loadSavedGroundChart() {
+        const savedImage = localStorage.getItem('selectedGroundChart');
+        const imageElement = document.getElementById('groundChartImage');
+        const selectElement = document.getElementById('groundChartSelector');
+
+        // If there's a saved image, update the img element and set the select element to the correct option
+        if (savedImage) {
+            imageElement.src = savedImage;
+            selectElement.value = savedImage;
+        }
+    }
+
+
         function displayFlightPlans() {
     const flightPlansList = document.getElementById('flightPlansList');
     const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
