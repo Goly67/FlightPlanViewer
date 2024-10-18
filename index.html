@@ -239,7 +239,7 @@ h2 {
 }
 
 /* Style for Edit Input */
-#editNote-* {
+#editNote {
     padding: 0.75rem;
     border: 2px solid var(--primary-color);
     border-radius: 5px;
@@ -247,7 +247,21 @@ h2 {
     font-size: 1rem;
 }
 
-/* Style for Edit Buttons */
+/* Style for the Edit Container */
+.edit-container {
+    display: none; /* Hide initially */
+    align-items: center;
+}
+
+.edit-container input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
 .edit-note, .update-note, .cancel-edit {
     background-color: var(--button-color); /* Green */
     color: white;
@@ -263,6 +277,7 @@ h2 {
 .edit-note:hover, .update-note:hover, .cancel-edit:hover {
     background-color: var(--button-hover-color); /* Darker green */
 }
+
 
 @media (max-width: 600px) {
     body {
@@ -369,10 +384,12 @@ IMPORTANT: "DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. "DEP SOUTHWEST, ARR SOUT
 function displayNotes() {
     const notesList = document.getElementById('notesList');
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    
     if (notes.length === 0) {
         notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
         return;
     }
+
     notesList.innerHTML = `
         <ul class="notes-list">
             ${notes.map((note, index) => `
@@ -394,6 +411,7 @@ function displayNotes() {
 function addNote() {
     const newNoteInput = document.getElementById('newNote');
     const noteText = newNoteInput.value.trim();
+
     if (noteText) {
         const notes = JSON.parse(localStorage.getItem('notes')) || [];
         notes.push(noteText);
@@ -405,9 +423,31 @@ function addNote() {
 
 function deleteNote(index) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
     notes.splice(index, 1);
     localStorage.setItem('notes', JSON.stringify(notes));
-    displayNotes();
+
+    displayNotes(); // Call displayNotes after deletion to refresh the UI
+}
+
+function updateNote(index) {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Trim spaces
+
+    if (updatedNote === "") {
+        deleteNote(index); // If the updated note is empty, delete the note
+    } else {
+        // Update the note in localStorage
+        notes[index] = updatedNote;
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        // Reflect the updated note in the UI
+        const noteText = noteItem.querySelector('.note-text');
+        noteText.textContent = updatedNote;
+
+        cancelEdit(index); // Hide the edit input after updating
+    }
 }
 
 function editNote(index) {
@@ -417,30 +457,35 @@ function editNote(index) {
     const editButton = noteItem.querySelector('.edit-note');
     const deleteButton = noteItem.querySelector('.delete-note');
 
-    // Toggle visibility
-    noteText.style.display = 'none';
-    editContainer.style.display = 'block';
+    // Toggle visibility of elements
+    noteText.style.display = 'none';  // Hide the current note text
+    editContainer.style.display = 'flex';  // Show the edit input field
 
-    // Hide the Edit and Delete buttons
+    // Hide the Edit and Delete buttons while editing
     editButton.style.display = 'none';
     deleteButton.style.display = 'none';
 }
 
 function updateNote(index) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const updatedNote = document.getElementById(`editNote-${index}`).value;
-    notes[index] = updatedNote;
-    localStorage.setItem('notes', JSON.stringify(notes));
-
-    // Toggle visibility back
-    editNote(index); // Call editNote to toggle back
-
-    // Show the Edit and Delete buttons again
     const noteItem = document.querySelectorAll('.note-item')[index];
-    const editButton = noteItem.querySelector('.edit-note');
-    const deleteButton = noteItem.querySelector('.delete-note');
-    editButton.style.display = 'block';
-    deleteButton.style.display = 'block';
+    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
+
+    if (updatedNote === "") {
+        // If the updated note is empty, delete it
+        deleteNote(index);
+    } else {
+        // Update the note in localStorage
+        notes[index] = updatedNote;
+        localStorage.setItem('notes', JSON.stringify(notes));
+
+        // Update the UI with the new note text
+        const noteText = noteItem.querySelector('.note-text');
+        noteText.textContent = updatedNote;
+
+        // Hide the edit input and show the updated note
+        cancelEdit(index);  // Call cancelEdit to hide the input and show the updated text
+    }
 }
 
 function cancelEdit(index) {
@@ -450,45 +495,28 @@ function cancelEdit(index) {
     const editButton = noteItem.querySelector('.edit-note');
     const deleteButton = noteItem.querySelector('.delete-note');
 
-    // Toggle visibility back
+    // Restore visibility of the note text and hide the input field
     noteText.style.display = 'block';
     editContainer.style.display = 'none';
 
     // Show the Edit and Delete buttons again
+    editButton.style.display = 'inline-block';
+    deleteButton.style.display = 'inline-block';
+}
+
+
+function cancelEdit(index) {
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const noteText = noteItem.querySelector('.note-text');
+    const editContainer = noteItem.querySelector('.edit-container');
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
+
+    noteText.style.display = 'block';
+    editContainer.style.display = 'none';
+
     editButton.style.display = 'block';
     deleteButton.style.display = 'block';
-}
-
-function copyAtis() {
-    const atisExample = `Gran Canaria (GCLP)
-
-GCLP_APP [121.300]: @xaie9  
-
-[**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
-
-GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...`;
-
-    navigator.clipboard.writeText(atisExample)
-        .then(() => {
-            // Optional: Show a success message
-            alert('ATIS example copied to clipboard!');
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
-}
-
-function copyServer() {
-    const Server = `31xxRy8Zpy`;
-
-    navigator.clipboard.writeText(Server)
-        .then(() => {
-            // Optional: Show a success message
-            alert('Server copied to clipboard!');
-        })
-        .catch(err => {
-            console.error('Failed to copy: ', err);
-        });
 }
 
 // Initial display
