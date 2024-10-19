@@ -8,347 +8,394 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-:root {
-    --primary-color: #3498db;
-    --secondary-color: #2c3e50;
-    --accent-color: #e74c3c;
-    --background-color: #ecf0f1;
-    --text-color: #34495e;
-    --button-color: #4CAF50; /* Green */
-    --button-hover-color: #3e8e41; /* Darker green */
-}
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --button-color: #4CAF50;
+            /* Green */
+            --button-hover-color: #3e8e41;
+            /* Darker green */
+        }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 2rem;
-    min-height: 100vh;
-    zoom: 0.6; /* Zoom out the entire page */
-}
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1474&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            zoom: 0.6;
+            /* Zoom out the entire page */
+        }
 
-.container {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 0 auto;
-    backdrop-filter: blur(10px);
-}
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
 
-h1, h2 {
-    color: var(--secondary-color);
-    text-align: center;
-    margin-bottom: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
+        h1,
+        h2 {
+            color: var(--secondary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-h1 {
-    font-size: 2.5rem;
-    
-}
+        h1 {
+            font-size: 2.5rem;
 
-h2 {
-    font-size: 2rem;
-    margin-top: -1rem;
-}
+        }
 
-.flight-plan {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-}
+        h2 {
+            font-size: 2rem;
+            margin-top: -1rem;
+        }
 
-.flight-plan:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-}
+        .flight-plan {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
 
-.flight-plan h3 {
-    color: var(--secondary-color);
-    margin-top: -1%;
-    margin-bottom: 1rem;
-    font-size: 2.1rem;
-    font-weight: 600;
-    text-align: center; /* Center the text */
+        .flight-plan:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
 
-}
+        .flight-plan h3 {
+            color: var(--secondary-color);
+            margin-top: -1%;
+            margin-bottom: 1rem;
+            font-size: 2.1rem;
+            font-weight: 600;
+            text-align: center;
+            /* Center the text */
 
-.flight-plan p {
-    margin: 0.5rem 0;
-    color: var(--text-color);
-    font-size: 130%;
-}
+        }
 
-.no-plans, .no-notes {
-    text-align: center;
-    color: var(--text-color);
-    font-style: italic;
-    font-size: 1.2rem;
-    margin-top: -0.5rem;
-}
+        .flight-plan p {
+            margin: 0.5rem 0;
+            color: var(--text-color);
+            font-size: 130%;
+        }
 
-.notes-section {
-    margin-top: 2rem;
-    border-top: 2px solid var(--primary-color);
-    padding-top: 2rem;
-}
+        .no-plans,
+        .no-notes {
+            text-align: center;
+            color: var(--text-color);
+            font-style: italic;
+            font-size: 1.2rem;
+            margin-top: -0.5rem;
+        }
 
-.notes-list {
-    list-style-type: none;
-    padding: 0;
-}
+        .notes-section {
+            margin-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+        }
 
-.note-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-left: 5px solid var(--primary-color);
-    border-radius: 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    transition: all 0.3s ease;
-}
+        .notes-list {
+            list-style-type: none;
+            padding: 0;
+        }
 
-.note-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
+        .note-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 5px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
 
-.delete-note {
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-}
+        .note-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.delete-note:hover {
-    background-color: #c0392b;
-}
+        .delete-note {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+        }
 
-.add-note {
-    display: flex;
-    margin-top: 1rem;
-}
+        .delete-note:hover {
+            background-color: #c0392b;
+        }
 
-.add-note input {
-    flex-grow: 1;
-    padding: 0.75rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 5px 0 0 5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-}
+        .add-note {
+            display: flex;
+            margin-top: 1rem;
+        }
 
-.add-note button {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-}
+        .add-note input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px 0 0 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
 
-.add-note button:hover {
-    background-color: #2980b9;
-}
+        .add-note button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
 
-.copy-button {
-    background-color: var(--button-color); /* Green */
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+        .add-note button:hover {
+            background-color: #2980b9;
+        }
 
-.copy-button:hover {
-    background-color: var(--button-hover-color); /* Darker green */
-}
+        .add-note input:focus {
+            background-color: rgba(52, 152, 219, 0.2);
+            /* Change background color */
+            border: 5px solid var(--primary-color);
+            /* Make border bigger and keep primary color */
+            outline: none;
+            /* Remove default outline */
+        }
 
-.atis-section {
-    margin-top: 2rem;
-    border-top: 2px solid var(--primary-color);
-    padding-top: 2rem;
-}
+        .copy-button {
+            background-color: var(--button-color);
+            /* Green */
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-.atis-example {
-    background-color: rgba(255, 255, 255, 0.8);
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    transition: all 0.3s ease;
-    display: flex; /* Enable flexbox for horizontal alignment */
-    justify-content: space-between; /* Distribute space between elements */
-    align-items: center; /* Vertically align items */
-}
+        .copy-button:hover {
+            background-color: var(--button-hover-color);
+            /* Darker green */
+        }
 
-.copy-button {
-    background-color: var(--button-color); /* Green */
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin: 0; /* Remove default margins */
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
+        .atis-section {
+            margin-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+            padding-top: 2rem;
+        }
 
-.copy-button:hover {
-    background-color: var(--button-hover-color); /* Darker green */
-}
+        .atis-example {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            /* Enable flexbox for horizontal alignment */
+            justify-content: space-between;
+            /* Distribute space between elements */
+            align-items: center;
+            /* Vertically align items */
+        }
 
-.atis-example p {
-    margin: 0.5rem 0;
-    color: var(--text-color);
-    margin-right: 10px; /* Add some spacing between the paragraph and the button */
-}
+        .copy-button {
+            background-color: var(--button-color);
+            /* Green */
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 0;
+            /* Remove default margins */
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-.atis-example:hover {
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(-5px);
-}
+        .copy-button:hover {
+            background-color: var(--button-hover-color);
+            /* Darker green */
+        }
 
+        .atis-example p {
+            margin: 0.5rem 0;
+            color: var(--text-color);
+            margin-right: 10px;
+            /* Add some spacing between the paragraph and the button */
+        }
 
-.back-button {
-    display: block;
-    margin: 2rem auto;
-    padding: 1rem 2rem;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.back-button:hover {
-    background-color: #2980b9; /* Darker blue */
-}
-
-/* Style for Edit Input */
-#editNote {
-    padding: 0.75rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-}
-
-/* Style for the Edit Container */
-.edit-container {
-    display: none; /* Hide initially */
-    align-items: center;
-}
-
-.edit-container input {
-    flex-grow: 1;
-    padding: 0.75rem;
-    border: 2px solid var(--primary-color);
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
-    width: 32.5rem;
-    border: 2px solid black; /* Default border color */
-    border-radius: 10px;
-    outline: none; /* Remove default outline */
-    border-color: var(--primary-color); /* Change border color to red on focus */
-}
-
-.edit-note, .update-note, .cancel-edit {
-    background-color: var(--button-color); /* Green */
-    color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 0.9rem;
-    margin-left: 10px; /* Add some spacing between buttons */
-}
-
-.edit-note:hover, .update-note:hover, .cancel-edit:hover {
-    background-color: var(--button-hover-color); /* Darker green */
-}
+        .atis-example:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
 
 
-@media (max-width: 600px) {
-    body {
-        padding: 1rem;
-        zoom: 0.6; /* Zoom out the entire page */
-    }
+        .back-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
 
-    .container {
-        padding: 1rem;
-    }
+        .back-button:hover {
+            background-color: #2980b9;
+            /* Darker blue */
+        }
 
-    h1 {
-        font-size: 2rem;
-    }
+        /* Style for Edit Input */
+        #editNote {
+            padding: 0.75rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
 
-    h2 {
-        font-size: 1.5rem;
-    }
+        /* Style for the Edit Container */
+        .edit-container {
+            display: none;
+            /* Hide initially */
+            align-items: center;
+        }
 
-    .flight-plan h3 {
-        font-size: 1.2rem;
-    }
+        .edit-container input {
+            flex-grow: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            width: 32.5rem;
+            border: 2px solid black;
+            /* Default border color */
+            border-radius: 10px;
+            outline: none;
+            /* Remove default outline */
+            border-color: var(--primary-color);
+            /* Change border color to red on focus */
+        }
 
-    .add-note {
-        flex-direction: column;
-    }
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            /* Red border */
+            box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.3);
+            background-color: white;
+        }
 
-    .add-note input,
-    .add-note button {
-        width: 100%;
-        border-radius: 5px;
-    }
+        .edit-note,
+        .update-note,
+        .cancel-edit {
+            background-color: var(--button-color);
+            /* Green */
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            /* Add some spacing between buttons */
+        }
 
-    .add-note button {
-        margin-top: 0.5rem;
-    }
-}
-</style>
+        .edit-note:hover,
+        .update-note:hover,
+        .cancel-edit:hover {
+            background-color: var(--button-hover-color);
+            /* Darker green */
+        }
+
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+                zoom: 0.6;
+                /* Zoom out the entire page */
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .flight-plan h3 {
+                font-size: 1.2rem;
+            }
+
+            .add-note {
+                flex-direction: column;
+            }
+
+            .add-note input,
+            .add-note button {
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            .add-note button {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Flight Plans</h1>
@@ -364,81 +411,107 @@ h2 {
         </div>
         <div class="atis-section">
             <h2>Ground Movement Chart</h2>
-            <label for="groundChartSelector" style="display: block; text-align: center; margin-top: -1rem; margin-bottom: 1rem; font-size: 1.3rem;">Choose Ground Movement Chart Image:</label>
-            <select id="groundChartSelector" onchange="updateGroundChart()" style="width: 100%; padding: 0.75rem; border: 2px solid var(--primary-color); border-radius: 5px; margin-bottom: -1.3rem;">
-                <option value="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"><h2>GCLP - GRAN CANARIA [APP: 121.300]</h2></option>
-                <option value="https://lh6.googleusercontent.com/3yOmKryoISuUb2AiJoyx8Q0LUkHXzIeXaITai9S-KONAMphWPrUjyRbiexsEQz3BUtHsVeTViAhJ0BokD8P6DVCRZ67xkZoGnGbTRkxQ_NOubDuUVXwPzbgSGuBXPMXgTQ=w740"><h2>LEMH - MENORCA [TWR: 121.750]</h2></option>
-                <option value="https://lh5.googleusercontent.com/vmbCHfImd6Qv4qpOwJu2fTZ39NTLkNN2rVocTroq50cwZAszqTjxQOMpTXyGJuH5dwHk_tbm9mpOjSrmtoFUWHa4T7u_Zw81A37dMYBd_7rVL92divF1QyOc2sSOBLtSeg=w740"><h2>EFKT - KITTILA</h2></option>
-                <option value="https://lh3.googleusercontent.com/C2_fk7YcIxDezR9Zw9yGy_vXcqPcPiHWYtx90faKte0w7st9jZxpYMGtBxEBCnKq7ZoPI--8WR7mGCRfFmvfbko_UyT54RnfKtyIaTiJgoCBD_VhzLbiwCvrRodCvqoc1A=w740"><h2>MDPC - PUNTA CANA [APP: 119.850]</h2></option>
-                <option value="https://lh5.googleusercontent.com/unwUO92__aQ8C7GF8NqYfXAYWhJ_VEhHeaD9UT21xEwEarOfElU36XF-VJaX9e7cArZ65XMMt4w_okG67lb6jlM0-5A2Ky85-ylLd3_j6KYtS--VMRStUTMis0hH4LI3hA=w740"><h2>EGKK - GATWICK</h2></option>
+            <label for="groundChartSelector"
+                style="display: block; text-align: center; margin-top: -1rem; margin-bottom: 1rem; font-size: 1.3rem;">Choose
+                Ground Movement Chart Image:</label>
+            <select id="groundChartSelector" onchange="updateGroundChart()"
+                style="width: 100%; padding: 0.75rem; border: 2px solid var(--primary-color); border-radius: 5px; margin-bottom: -1.3rem;">
+                <option
+                    value="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA">
+                    <h2>GCLP - GRAN CANARIA [APP: 121.300]</h2>
+                </option>
+                <option
+                    value="https://lh6.googleusercontent.com/3yOmKryoISuUb2AiJoyx8Q0LUkHXzIeXaITai9S-KONAMphWPrUjyRbiexsEQz3BUtHsVeTViAhJ0BokD8P6DVCRZ67xkZoGnGbTRkxQ_NOubDuUVXwPzbgSGuBXPMXgTQ=w740">
+                    <h2>LEMH - MENORCA [TWR: 121.750]</h2>
+                </option>
+                <option
+                    value="https://lh5.googleusercontent.com/vmbCHfImd6Qv4qpOwJu2fTZ39NTLkNN2rVocTroq50cwZAszqTjxQOMpTXyGJuH5dwHk_tbm9mpOjSrmtoFUWHa4T7u_Zw81A37dMYBd_7rVL92divF1QyOc2sSOBLtSeg=w740">
+                    <h2>EFKT - KITTILA</h2>
+                </option>
+                <option
+                    value="https://lh3.googleusercontent.com/C2_fk7YcIxDezR9Zw9yGy_vXcqPcPiHWYtx90faKte0w7st9jZxpYMGtBxEBCnKq7ZoPI--8WR7mGCRfFmvfbko_UyT54RnfKtyIaTiJgoCBD_VhzLbiwCvrRodCvqoc1A=w740">
+                    <h2>MDPC - PUNTA CANA [APP: 119.850]</h2>
+                </option>
+                <option
+                    value="https://lh5.googleusercontent.com/unwUO92__aQ8C7GF8NqYfXAYWhJ_VEhHeaD9UT21xEwEarOfElU36XF-VJaX9e7cArZ65XMMt4w_okG67lb6jlM0-5A2Ky85-ylLd3_j6KYtS--VMRStUTMis0hH4LI3hA=w740">
+                    <h2>EGKK - GATWICK</h2>
+                </option>
             </select>
-            <img id="groundChartImage" src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA" alt="Flight Image" style="display: block; margin: 2rem auto; max-width: 100%; height: auto; border-radius: 5px;">
+            <img id="groundChartImage"
+                src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"
+                alt="Flight Image"
+                style="display: block; margin: 2rem auto; max-width: 100%; height: auto; border-radius: 5px;">
         </div>
-        
-        
+
+
         <div class="atis-section">
             <h2>Project flight Server</h2>
             <div class="atis-example">
                 <p>31xxRy8Zpy</p>
-                <button class="copy-button" onclick="copyServer()">Copy</button> </div>
+                <button class="copy-button" onclick="copyServer()">Copy</button>
+            </div>
             <div class="atis-example">
                 <p>PUBLICATC</p>
                 <button class="copy-button" onclick="copyPassword()">Copy</button>
             </div>
-        <div class="atis-section">
-            <h2>ATIS Example</h2>
-            <div class="atis-example">
-                <p>
-                    Gran Canaria (GCLP)
-<br/>
-<br/>
-GCLP_APP [121.300]: @xaie9  
-<br/>
-<br/>
-[**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
-<br/>
-<br/>
-GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
-<br/>
-<br/>
-<b style="font-size: 140%;">IMPORTANT:</b> <em><b><br/>"DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. <br/>"DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.</em></b>
-                </p>
-                <button class="copy-button" onclick="copyAtis()">Copy</button>
+            <div class="atis-section">
+                <h2>ATIS Example</h2>
+                <div class="atis-example">
+                    <p>
+                        Gran Canaria (GCLP)
+                        <br />
+                        <br />
+                        GCLP_APP [121.300]: @xaie9
+                        <br />
+                        <br />
+                        [**[CLICK HERE TO FILL UP FLIGHT PLANS]**](https://forms.gle/WfpsCb9wpCvrbcSc6)
+                        <br />
+                        <br />
+                        GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110
+                        DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT
+                        22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING
+                        RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
+                        <br />
+                        <br />
+                        <b style="font-size: 140%;">IMPORTANT:</b> <em><b><br />"DEP NORTHEAST, ARR SOUTHWEST RUNWAY"
+                                WRONG. <br />"DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.</em></b>
+                    </p>
+                    <button class="copy-button" onclick="copyAtis()">Copy</button>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-function updateGroundChart() {
-            const selector = document.getElementById('groundChartSelector');
-            const image = document.getElementById('groundChartImage');
-            const selectedValue = selector.value;
-
-            // Update the image source based on the selected option
-            image.src = selectedValue;
-
-            // Save the selected option to localStorage
-            localStorage.setItem('selectedGroundChart', selectedValue);
-        }
-
-        window.onload = function() {
-            // Check if there's a saved selection in localStorage
-            const savedValue = localStorage.getItem('selectedGroundChart');
-            if (savedValue) {
+        <script>
+            function updateGroundChart() {
                 const selector = document.getElementById('groundChartSelector');
-                selector.value = savedValue; // Set the selector to the saved value
-                updateGroundChart(); // Update the image based on the saved value
+                const image = document.getElementById('groundChartImage');
+                const selectedValue = selector.value;
+
+                // Update the image source based on the selected option
+                image.src = selectedValue;
+
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedGroundChart', selectedValue);
             }
-        };
+
+            window.onload = function () {
+                // Check if there's a saved selection in localStorage
+                const savedValue = localStorage.getItem('selectedGroundChart');
+                if (savedValue) {
+                    const selector = document.getElementById('groundChartSelector');
+                    selector.value = savedValue; // Set the selector to the saved value
+                    updateGroundChart(); // Update the image based on the saved value
+                }
+            };
 
 
-        function displayFlightPlans() {
-    const flightPlansList = document.getElementById('flightPlansList');
-    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-    if (flightPlans.length === 0) {
-        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
-        return;
-    }
-    flightPlansList.innerHTML = flightPlans.map(plan => `
+            function displayFlightPlans() {
+                const flightPlansList = document.getElementById('flightPlansList');
+                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+                if (flightPlans.length === 0) {
+                    flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+                    return;
+                }
+                flightPlansList.innerHTML = flightPlans.map(plan => `
         <div class="flight-plan">
             <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
             <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
@@ -448,18 +521,18 @@ function updateGroundChart() {
             <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
         </div>
     `).join('');
-}
+            }
 
-function displayNotes() {
-    const notesList = document.getElementById('notesList');
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    
-    if (notes.length === 0) {
-        notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
-        return;
-    }
+            function displayNotes() {
+                const notesList = document.getElementById('notesList');
+                const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
-    notesList.innerHTML = `
+                if (notes.length === 0) {
+                    notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
+                    return;
+                }
+
+                notesList.innerHTML = `
         <ul class="notes-list">
             ${notes.map((note, index) => `
                 <li class="note-item">
@@ -475,158 +548,158 @@ function displayNotes() {
             `).join('')}
         </ul>
     `;
-}
-
-function addNote() {
-    const newNoteInput = document.getElementById('newNote');
-    const noteText = newNoteInput.value.trim();
-
-    if (noteText) {
-        const notes = JSON.parse(localStorage.getItem('notes')) || [];
-        notes.push(noteText);
-        localStorage.setItem('notes', JSON.stringify(notes));
-        newNoteInput.value = '';
-        displayNotes();
-    }   
-}
-
-document.getElementById('newNote').addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                addNote(); // Call the addNote function when Enter is pressed
             }
-        });
 
-        document.addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                const editInputs = document.querySelectorAll('.edit-container input'); 
-                editInputs.forEach((input, index) => {
-                    if (input === event.target) {
-                        updateNote(index); 
-                    }
+            function addNote() {
+                const newNoteInput = document.getElementById('newNote');
+                const noteText = newNoteInput.value.trim();
+
+                if (noteText) {
+                    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+                    notes.push(noteText);
+                    localStorage.setItem('notes', JSON.stringify(notes));
+                    newNoteInput.value = '';
+                    displayNotes();
+                }
+            }
+
+            document.getElementById('newNote').addEventListener('keyup', function (event) {
+                if (event.key === 'Enter') {
+                    addNote(); // Call the addNote function when Enter is pressed
+                }
+            });
+
+            document.addEventListener('keyup', function (event) {
+                if (event.key === 'Enter') {
+                    const editInputs = document.querySelectorAll('.edit-container input');
+                    editInputs.forEach((input, index) => {
+                        if (input === event.target) {
+                            updateNote(index);
+                        }
+                    });
+                }
+            });
+
+            function deleteNote(index) {
+                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+                notes.splice(index, 1);
+                localStorage.setItem('notes', JSON.stringify(notes));
+
+                displayNotes(); // Call displayNotes after deletion to refresh the UI
+            }
+
+            function updateNote(index) {
+                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+                const noteItem = document.querySelectorAll('.note-item')[index];
+                const originalNote = noteItem.querySelector('.note-text').textContent.trim(); // Get the original note text
+
+                notes[index] = originalNote; // Update the note in localStorage with the original text
+                localStorage.setItem('notes', JSON.stringify(notes));
+
+                cancelEdit(index); // Hide the edit input and show the updated text
+            }
+
+            function editNote(index) {
+                const noteItem = document.querySelectorAll('.note-item')[index];
+                const noteText = noteItem.querySelector('.note-text');
+                const editContainer = noteItem.querySelector('.edit-container');
+                const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
+                const editButton = noteItem.querySelector('.edit-note');
+                const deleteButton = noteItem.querySelector('.delete-note');
+
+                // Toggle visibility of elements
+                noteText.style.display = 'none';
+                editContainer.style.display = 'flex';
+
+                // Hide the Edit and Delete buttons while editing
+                editButton.style.display = 'none';
+                deleteButton.style.display = 'none';
+
+                // Focus the edit input
+                editInput.focus();
+                editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
+            }
+
+            function updateNote(index) {
+                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+                const noteItem = document.querySelectorAll('.note-item')[index];
+                const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
+
+                if (updatedNote === "") {
+                    // If the updated note is empty, delete it
+                    deleteNote(index);
+                } else {
+                    // Update the note in localStorage
+                    notes[index] = updatedNote;
+                    localStorage.setItem('notes', JSON.stringify(notes));
+
+                    // Update the UI with the new note text
+                    const noteText = noteItem.querySelector('.note-text');
+                    noteText.textContent = updatedNote;
+
+                    // Hide the edit input and show the updated note
+                    cancelEdit(index);  // Call cancelEdit to hide the input and show the updated text
+                }
+            }
+
+            function cancelEdit(index) {
+                const noteItem = document.querySelectorAll('.note-item')[index];
+                const noteText = noteItem.querySelector('.note-text');
+                const editContainer = noteItem.querySelector('.edit-container');
+                const editButton = noteItem.querySelector('.edit-note');
+                const deleteButton = noteItem.querySelector('.delete-note');
+
+                // Restore visibility of the note text and hide the input field
+                noteText.style.display = 'block';
+                editContainer.style.display = 'none';
+
+                // Show the Edit and Delete buttons again
+                editButton.style.display = 'inline-block';
+                deleteButton.style.display = 'inline-block';
+            }
+
+
+            function cancelEdit(index) {
+                const noteItem = document.querySelectorAll('.note-item')[index];
+                const noteText = noteItem.querySelector('.note-text');
+                const editContainer = noteItem.querySelector('.edit-container');
+                const editButton = noteItem.querySelector('.edit-note');
+                const deleteButton = noteItem.querySelector('.delete-note');
+
+                noteText.style.display = 'block';
+                editContainer.style.display = 'none';
+
+                editButton.style.display = 'block';
+                deleteButton.style.display = 'block';
+            }
+
+            function copyServer() {
+                const textToCopy = '31xxRy8Zpy'; // Server code to copy
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    alert('Server code copied to clipboard: ' + textToCopy);
                 });
             }
-        });
 
-function deleteNote(index) {
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+            function copyPassword() {
+                const textToCopy = 'PUBLICATC'; // Password to copy
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    alert('Password copied to clipboard: ' + textToCopy);
+                });
+            }
 
-    notes.splice(index, 1);
-    localStorage.setItem('notes', JSON.stringify(notes));
-
-    displayNotes(); // Call displayNotes after deletion to refresh the UI
-}
-
-function updateNote(index) {
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const originalNote = noteItem.querySelector('.note-text').textContent.trim(); // Get the original note text
-
-    notes[index] = originalNote; // Update the note in localStorage with the original text
-    localStorage.setItem('notes', JSON.stringify(notes));
-
-    cancelEdit(index); // Hide the edit input and show the updated text
-}
-
-function editNote(index) {
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const noteText = noteItem.querySelector('.note-text');
-    const editContainer = noteItem.querySelector('.edit-container');
-    const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
-    const editButton = noteItem.querySelector('.edit-note');
-    const deleteButton = noteItem.querySelector('.delete-note');
-
-    // Toggle visibility of elements
-    noteText.style.display = 'none';  
-    editContainer.style.display = 'flex';  
-
-    // Hide the Edit and Delete buttons while editing
-    editButton.style.display = 'none';
-    deleteButton.style.display = 'none';
-
-    // Focus the edit input
-    editInput.focus(); 
-    editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
-}
-
-function updateNote(index) {
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
-
-    if (updatedNote === "") {
-        // If the updated note is empty, delete it
-        deleteNote(index);
-    } else {
-        // Update the note in localStorage
-        notes[index] = updatedNote;
-        localStorage.setItem('notes', JSON.stringify(notes));
-
-        // Update the UI with the new note text
-        const noteText = noteItem.querySelector('.note-text');
-        noteText.textContent = updatedNote;
-
-        // Hide the edit input and show the updated note
-        cancelEdit(index);  // Call cancelEdit to hide the input and show the updated text
-    }
-}
-
-function cancelEdit(index) {
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const noteText = noteItem.querySelector('.note-text');
-    const editContainer = noteItem.querySelector('.edit-container');
-    const editButton = noteItem.querySelector('.edit-note');
-    const deleteButton = noteItem.querySelector('.delete-note');
-
-    // Restore visibility of the note text and hide the input field
-    noteText.style.display = 'block';
-    editContainer.style.display = 'none';
-
-    // Show the Edit and Delete buttons again
-    editButton.style.display = 'inline-block';
-    deleteButton.style.display = 'inline-block';
-}
-
-
-function cancelEdit(index) {
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const noteText = noteItem.querySelector('.note-text');
-    const editContainer = noteItem.querySelector('.edit-container');
-    const editButton = noteItem.querySelector('.edit-note');
-    const deleteButton = noteItem.querySelector('.delete-note');
-
-    noteText.style.display = 'block';
-    editContainer.style.display = 'none';
-
-    editButton.style.display = 'block';
-    deleteButton.style.display = 'block';
-}
-
-function copyServer() {
-    const textToCopy = '31xxRy8Zpy'; // Server code to copy
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Server code copied to clipboard: ' + textToCopy);
-    });
-}
-
-function copyPassword() {
-    const textToCopy = 'PUBLICATC'; // Password to copy
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        alert('Password copied to clipboard: ' + textToCopy);
-    });
-}
-
-function copyAtis() {
-    const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n`;
-    navigator.clipboard.writeText(atisText).then(() => {
-        alert('ATIS copied to clipboard.');
-    });
-}
+            function copyAtis() {
+                const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n`;
+                navigator.clipboard.writeText(atisText).then(() => {
+                    alert('ATIS copied to clipboard.');
+                });
+            }
 
 
 
-// Initial display
-displayFlightPlans();
-displayNotes();
-    </script>
+            // Initial display
+            displayFlightPlans();
+            displayNotes();
+        </script>
 </body>
 </html>
