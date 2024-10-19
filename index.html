@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -392,6 +393,40 @@
                 margin-top: 0.5rem;
             }
         }
+
+        .frequencies-section {
+            /* Space above frequencies section */
+            padding: 10px;
+            background-color: #f0f8ff;
+            /* Light blue background for contrast */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 1.8rem;
+            border-top: 12px solid var(--primary-color);
+            padding-top: 2rem;
+        }
+
+        .frequencies-section h3 {
+            margin-bottom: 10px;
+            /* Space below the title */
+        }
+
+        #frequencyDropdown {
+            width: 100%;
+            /* Full width for the dropdown */
+            padding: 10px;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            background-color: white;
+            /* White background for the dropdown */
+        }
+
+        #frequencyDisplay {
+            font-weight: bold;
+            /* Bold text for frequency display */
+            color: #333;
+            /* Darker color for visibility */
+        }
     </style>
 </head>
 
@@ -407,6 +442,20 @@
                 <input type="text" id="newNote" placeholder="Add a new note" maxlength="150">
                 <button onclick="addNote()">Add Note</button>
             </div>
+        </div>
+        <div class="frequencies-section">
+            <h3 style="margin-top: -1.5rem;">Select Airport Frequency</h3>
+            <select id="frequencyDropdown" onchange="displayFrequency()">
+                <option value="" disabled selected>Select an airport</option>
+                <option value="UNICOM - 122.800">UNICOM - 122.800</option>
+                <option value="GCLP_APP - 121.300">Gran Canaria (GCLP) - APP: 121.300</option>
+                <option value="LEMH_TWR - 121.750">Menorca (LEMH) - TWR: 121.750</option>
+                <option value="LYTV_TWR - 119.325">Tivat (LYTV) - TWR: 119.325</option>
+                <option value="EGKK_APP - 126.825">London Gatwick (EGKK) - APP: 126.825</option>
+                <option value="MDPC_APP - 119.850">Punta Cana (MDPC) - APP: 119.850</option>
+                <option value="MDST_TWR - 118.300">Cabo Rojo (MDST) - TWR: 118.300</option>
+            </select>
+            <p id="frequencyDisplay" style="margin-top: 10px; text-align: center; font-size: 2rem;"></p>
         </div>
         <div class="atis-section">
             <h2>Ground Movement Chart</h2>
@@ -480,6 +529,33 @@
             </div>
         </div>
         <script>
+            function displayFrequency() {
+            const dropdown = document.getElementById('frequencyDropdown');
+            const selectedFrequency = dropdown.value; // Get selected frequency
+            const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
+
+            console.log("Selected Frequency:", selectedFrequency); // Debugging log
+
+            if (selectedFrequency) {
+                displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
+                localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
+            } else {
+                displayElement.textContent = ''; // Clear if nothing selected
+            }
+        }
+
+        window.onload = function () {
+            // Check if there's a saved selection in localStorage
+            const savedFrequency = localStorage.getItem('selectedFrequency');
+            console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
+            
+            if (savedFrequency) {
+                const dropdown = document.getElementById('frequencyDropdown');
+                dropdown.value = savedFrequency; // Set the dropdown to the saved value
+                displayFrequency(); // Display the saved frequency
+            }
+        };
+
             function updateGroundChart() {
                 const selector = document.getElementById('groundChartSelector');
                 const image = document.getElementById('groundChartImage');
@@ -701,4 +777,5 @@
             displayNotes();
         </script>
 </body>
+
 </html>
