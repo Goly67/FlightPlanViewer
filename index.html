@@ -353,7 +353,7 @@ h2 {
             <h2>Notes</h2>
             <div id="notesList"></div>
             <div class="add-note">
-                <input type="text" id="newNote" placeholder="Add a new note">
+                <input type="text" id="newNote" placeholder="Add a new note" maxlength="150">
                 <button onclick="addNote()">Add Note</button>
             </div>
         </div>
@@ -396,7 +396,7 @@ GCLP_APP [121.300]: @xaie9
 GRAN CANARIA AIRPORT INFORMATION Q... 1100Z... WIND 080 AT 5 KNOTS, VARIABLE BETWEEN 040 AND 110 DEGREES... VISIBILITY 10 OR MORE KILOMETERS... FEW CLOUDS AT 3000... TEMPERATURE 26, DEWPOINT 22... QNH 1018, ALTIMETER 3006... VISUAL APPROACHES IN USE... LANDING RUNWAY 03L... DEPARTING RUNWAY 21L... ADVISE CONTROLLER ON INITIAL CONTACT THAT YOU HAVE INFORMATION Q...
 <br/>
 <br/>
-IMPORTANT: "DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. "DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.
+<b style="font-size: 140%;">IMPORTANT:</b> <em><b><br/>"DEP NORTHEAST, ARR SOUTHWEST RUNWAY" WRONG. <br/>"DEP SOUTHWEST, ARR SOUTHWEST" CORRECT.</em></b>
                 </p>
                 <button class="copy-button" onclick="copyAtis()">Copy</button>
             </div>
@@ -583,42 +583,26 @@ function cancelEdit(index) {
     deleteButton.style.display = 'block';
 }
 
-function copyPassword() {
-  const passwordText = document.querySelector('.atis-example:nth-of-type(2) p').textContent; 
-  navigator.clipboard.writeText(passwordText)
-    .then(() => {
-      alert('Password information copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
+function copyServer() {
+    const textToCopy = '31xxRy8Zpy'; // Server code to copy
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Server code copied to clipboard: ' + textToCopy);
     });
 }
 
-function copyServer() {
-  const serverText = document.querySelector('.atis-example:first-of-type p').textContent; // Corrected selector
-  navigator.clipboard.writeText(serverText)
-    .then(() => {
-      // Optional: Display a success message 
-      alert('Server information copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
+function copyPassword() {
+    const textToCopy = 'PUBLICATC'; // Password to copy
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Password copied to clipboard: ' + textToCopy);
     });
 }
 
 function copyAtis() {
-  const atisText = document.querySelector('.atis-example:last-of-type p').textContent; // Corrected selector
-  navigator.clipboard.writeText(atisText)
-    .then(() => {
-      // Optional: Display a success message 
-      alert('ATIS example copied to clipboard!');
-    })
-    .catch(err => {
-      console.error('Failed to copy: ', err);
+    const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n`;
+    navigator.clipboard.writeText(atisText).then(() => {
+        alert('ATIS copied to clipboard.');
     });
 }
-
-// ... (rest of the code)
 
 // Initial display
 displayFlightPlans();
