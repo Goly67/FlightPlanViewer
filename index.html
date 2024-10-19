@@ -483,8 +483,25 @@ function addNote() {
         localStorage.setItem('notes', JSON.stringify(notes));
         newNoteInput.value = '';
         displayNotes();
-    }
+    }   
 }
+
+document.getElementById('newNote').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                addNote(); // Call the addNote function when Enter is pressed
+            }
+        });
+
+        document.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                const editInputs = document.querySelectorAll('.edit-container input'); 
+                editInputs.forEach((input, index) => {
+                    if (input === event.target) {
+                        updateNote(index); 
+                    }
+                });
+            }
+        });
 
 function deleteNote(index) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -498,37 +515,33 @@ function deleteNote(index) {
 function updateNote(index) {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const noteItem = document.querySelectorAll('.note-item')[index];
-    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Trim spaces
+    const originalNote = noteItem.querySelector('.note-text').textContent.trim(); // Get the original note text
 
-    if (updatedNote === "") {
-        deleteNote(index); // If the updated note is empty, delete the note
-    } else {
-        // Update the note in localStorage
-        notes[index] = updatedNote;
-        localStorage.setItem('notes', JSON.stringify(notes));
+    notes[index] = originalNote; // Update the note in localStorage with the original text
+    localStorage.setItem('notes', JSON.stringify(notes));
 
-        // Reflect the updated note in the UI
-        const noteText = noteItem.querySelector('.note-text');
-        noteText.textContent = updatedNote;
-
-        cancelEdit(index); // Hide the edit input after updating
-    }
+    cancelEdit(index); // Hide the edit input and show the updated text
 }
 
 function editNote(index) {
     const noteItem = document.querySelectorAll('.note-item')[index];
     const noteText = noteItem.querySelector('.note-text');
     const editContainer = noteItem.querySelector('.edit-container');
+    const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
     const editButton = noteItem.querySelector('.edit-note');
     const deleteButton = noteItem.querySelector('.delete-note');
 
     // Toggle visibility of elements
-    noteText.style.display = 'none';  // Hide the current note text
-    editContainer.style.display = 'flex';  // Show the edit input field
+    noteText.style.display = 'none';  
+    editContainer.style.display = 'flex';  
 
     // Hide the Edit and Delete buttons while editing
     editButton.style.display = 'none';
     deleteButton.style.display = 'none';
+
+    // Focus the edit input
+    editInput.focus(); 
+    editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
 }
 
 function updateNote(index) {
