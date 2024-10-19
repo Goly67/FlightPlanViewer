@@ -419,6 +419,10 @@
             border-radius: 5px;
             background-color: white;
             /* White background for the dropdown */
+            display: grid;
+            gap: 0.8rem;
+            /* Reduced gap */
+            font-size: 1.2rem;
         }
 
         #frequencyDisplay {
@@ -447,7 +451,7 @@
             <h3 style="margin-top: -1.5rem;">Select Airport Frequency</h3>
             <select id="frequencyDropdown" onchange="displayFrequency()">
                 <option value="" disabled selected>Select an airport</option>
-                <option value="UNICOM - 122.800">UNICOM - 122.800</option>
+                <option value="UNICOM - 122.800">Unicom - 122.800</option>
                 <option value="GCLP_APP - 121.300">Gran Canaria (GCLP) - APP: 121.300</option>
                 <option value="LEMH_TWR - 121.750">Menorca (LEMH) - TWR: 121.750</option>
                 <option value="LYTV_TWR - 119.325">Tivat (LYTV) - TWR: 119.325</option>
