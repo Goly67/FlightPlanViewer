@@ -492,10 +492,23 @@
                     <h2>EGKK - GATWICK</h2>
                 </option>
             </select>
-            <img id="groundChartImage"
-                src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"
-                alt="Flight Image"
-                style="display: block; margin: 2rem auto; max-width: 100%; height: auto; border-radius: 5px;">
+            <div id="image-container"
+                style="width: 100%; height: 460px; overflow: hidden; margin: 2em auto; position: relative; border: 1px solid #ccc; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                <img id="groundChartImage"
+                    src="https://lh5.googleusercontent.com/mJ2MGUrgYV1KxivSu7M7BWnwme7ffr21DhZkh6YnIzo0g8WOtDp_4gBtJqmKclBT6OQI7Iy9-k-rVOa4hJNf7mKLlB0nr3VBz9hu-ntK2HQAj5Il8FCIQg-RupCeQ-67nA"
+                    alt="Ground Movement Chart"
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(1);">
+            </div>
+
+            <!-- Zoom buttons -->
+            <div style="margin-top: 15px; text-align: center;">
+                <button onclick="zoomIn()"
+                    style="padding: 10px 20px; background-color: #007bff; color: white; border: none; border-radius: 5px;  font-size: 1.6rem; cursor: pointer; margin-right: 10px;">Zoom
+                    In</button>
+                <button onclick="zoomOut()"
+                    style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1.6rem;">Zoom
+                    Out</button>
+            </div>
         </div>
 
 
@@ -536,32 +549,127 @@
             </div>
         </div>
         <script>
+            let zoomLevel = 1; // Initial zoom level
+            let isDragging = false; // For tracking drag status
+            let currentX = 0, currentY = 0; // Track current image position
+            let initialMouseX, initialMouseY; // Initial mouse position
+
+            const image = document.getElementById('groundChartImage');
+            const container = document.getElementById('image-container');
+
+            // Disable default drag behavior of the image
+            image.addEventListener('dragstart', (event) => {
+                event.preventDefault();
+            });
+
+            // Pointer down to start dragging
+            image.addEventListener('pointerdown', (event) => {
+                if (zoomLevel > 1) {
+                    isDragging = true;
+                    image.setPointerCapture(event.pointerId); // Capture pointer events for this element
+                    image.style.cursor = 'grabbing';
+
+                    initialMouseX = event.clientX;
+                    initialMouseY = event.clientY;
+
+                    // Prevent text selection while dragging
+                    document.body.style.userSelect = 'none';
+                }
+            });
+
+            // Pointer up to stop dragging
+            image.addEventListener('pointerup', () => {
+                isDragging = false;
+                image.style.cursor = 'grab';
+                // Re-enable text selection
+                document.body.style.userSelect = '';
+            });
+
+            // Pointer move to handle dragging
+            image.addEventListener('pointermove', (event) => {
+                if (isDragging) {
+                    const dx = event.clientX - initialMouseX;
+                    const dy = event.clientY - initialMouseY;
+
+                    // Update current position directly
+                    currentX += dx;
+                    currentY += dy;
+
+                    // Update image position
+                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+
+                    // Update initial mouse position
+                    initialMouseX = event.clientX;
+                    initialMouseY = event.clientY;
+                }
+            });
+
+            // Function to zoom in
+            function zoomIn() {
+                zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
+                updateImageTransform();
+            }
+
+            // Function to zoom out
+            function zoomOut() {
+                zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
+                updateImageTransform();
+            }
+
+            // Update image transform based on zoom
+            function updateImageTransform() {
+                if (zoomLevel === 1) {
+                    // Reset offsets when zooming out to original size
+                    currentX = 0;
+                    currentY = 0;
+                    image.style.transform = 'translate(-50%, -50%) scale(1)';
+                } else {
+                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+                }
+            }
+
+            // Function to handle changing the image
+            function updateGroundChart() {
+                const selector = document.getElementById('groundChartSelector');
+                const selectedValue = selector.value;
+
+                // Update image source
+                image.src = selectedValue;
+
+                // Reset zoom level and transform to center
+                zoomLevel = 1;
+                currentX = 0;
+                currentY = 0;
+                image.style.transform = 'translate(-50%, -50%) scale(1)';
+            }
+
+
             function displayFrequency() {
-            const dropdown = document.getElementById('frequencyDropdown');
-            const selectedFrequency = dropdown.value; // Get selected frequency
-            const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
-
-            console.log("Selected Frequency:", selectedFrequency); // Debugging log
-
-            if (selectedFrequency) {
-                displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
-                localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
-            } else {
-                displayElement.textContent = ''; // Clear if nothing selected
-            }
-        }
-
-        window.onload = function () {
-            // Check if there's a saved selection in localStorage
-            const savedFrequency = localStorage.getItem('selectedFrequency');
-            console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
-            
-            if (savedFrequency) {
                 const dropdown = document.getElementById('frequencyDropdown');
-                dropdown.value = savedFrequency; // Set the dropdown to the saved value
-                displayFrequency(); // Display the saved frequency
+                const selectedFrequency = dropdown.value; // Get selected frequency
+                const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
+
+                console.log("Selected Frequency:", selectedFrequency); // Debugging log
+
+                if (selectedFrequency) {
+                    displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
+                    localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
+                } else {
+                    displayElement.textContent = ''; // Clear if nothing selected
+                }
             }
-        };
+
+            window.onload = function () {
+                // Check if there's a saved selection in localStorage
+                const savedFrequency = localStorage.getItem('selectedFrequency');
+                console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
+
+                if (savedFrequency) {
+                    const dropdown = document.getElementById('frequencyDropdown');
+                    dropdown.value = savedFrequency; // Set the dropdown to the saved value
+                    displayFrequency(); // Display the saved frequency
+                }
+            };
 
             function updateGroundChart() {
                 const selector = document.getElementById('groundChartSelector');
