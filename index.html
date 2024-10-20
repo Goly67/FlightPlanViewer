@@ -435,7 +435,7 @@
 
         .zoom-button {
             padding: 10px 20px;
-            background-color: var(--primary-color);
+            background-color: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -447,8 +447,10 @@
 
         /* Hover effect */
         .zoom-button:hover {
-            background-color: #2379B1; /* Darker blue on hover */
-            transform: scale(1.05); /* Slightly grow the button */
+            background-color: #0056b3;
+            /* Darker blue on hover */
+            transform: scale(1.05);
+            /* Slightly grow the button */
         }
 
         /* Ensure buttons stack nicely */
@@ -571,119 +573,84 @@
             </div>
         </div>
         <script>
-          let zoomLevel = 1; // Initial zoom level
-let isDragging = false; // For tracking drag status
-let currentX = 0, currentY = 0; // Track current image position
-let initialMouseX, initialMouseY; // Initial mouse/touch position
+            let zoomLevel = 1; // Initial zoom level
+            let isDragging = false; // For tracking drag status
+            let currentX = 0, currentY = 0; // Track current image position
+            let initialMouseX, initialMouseY; // Initial mouse position
 
-const image = document.getElementById('groundChartImage');
+            const image = document.getElementById('groundChartImage');
+            const container = document.getElementById('image-container');
 
-// Disable default drag behavior of the image
-image.addEventListener('dragstart', (event) => {
-    event.preventDefault();
-});
+            // Disable default drag behavior of the image
+            image.addEventListener('dragstart', (event) => {
+                event.preventDefault();
+            });
 
-// Pointer down to start dragging (for desktop)
-image.addEventListener('pointerdown', (event) => {
-    startDragging(event.clientX, event.clientY, event);
-});
+            // Pointer down to start dragging
+            image.addEventListener('pointerdown', (event) => {
+                if (zoomLevel > 1) {
+                    isDragging = true;
+                    image.setPointerCapture(event.pointerId); // Capture pointer events for this element
+                    image.style.cursor = 'grabbing';
 
-// Touch down to start dragging (for mobile)
-image.addEventListener('touchstart', (event) => {
-    const touch = event.touches[0];
-    startDragging(touch.clientX, touch.clientY, event);
-});
+                    initialMouseX = event.clientX;
+                    initialMouseY = event.clientY;
 
-// Common function for starting dragging (both desktop and mobile)
-function startDragging(x, y, event) {
-    if (zoomLevel > 1) {
-        isDragging = true;
-        initialMouseX = x;
-        initialMouseY = y;
+                    // Prevent text selection while dragging
+                    document.body.style.userSelect = 'none';
+                }
+            });
 
-        // Prevent text selection while dragging (useful for desktop)
-        document.body.style.userSelect = 'none';
+            // Pointer up to stop dragging
+            image.addEventListener('pointerup', () => {
+                isDragging = false;
+                image.style.cursor = 'grab';
+                // Re-enable text selection
+                document.body.style.userSelect = '';
+            });
 
-        image.style.cursor = 'grabbing'; // Apply grabbing cursor for desktop
-        event.preventDefault(); // Prevent default behavior
-    }
-}
+            // Pointer move to handle dragging
+            image.addEventListener('pointermove', (event) => {
+                if (isDragging) {
+                    const dx = event.clientX - initialMouseX;
+                    const dy = event.clientY - initialMouseY;
 
-// Pointer up to stop dragging (for desktop)
-image.addEventListener('pointerup', stopDragging);
+                    // Update current position directly
+                    currentX += dx;
+                    currentY += dy;
 
-// Touch end to stop dragging (for mobile)
-image.addEventListener('touchend', stopDragging);
+                    // Update image position
+                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
 
-function stopDragging() {
-    isDragging = false;
-    image.style.cursor = 'grab'; // Reset cursor
-    document.body.style.userSelect = ''; // Re-enable text selection
-}
+                    // Update initial mouse position
+                    initialMouseX = event.clientX;
+                    initialMouseY = event.clientY;
+                }
+            });
 
-// Pointer move to handle dragging (for desktop)
-image.addEventListener('pointermove', (event) => {
-    if (isDragging) {
-        moveImage(event.clientX, event.clientY, event);
-    }
-});
+            // Function to zoom in
+            function zoomIn() {
+                zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
+                updateImageTransform();
+            }
 
-// Touch move to handle dragging (for mobile)
-image.addEventListener('touchmove', (event) => {
-    if (isDragging) {
-        const touch = event.touches[0];
-        moveImage(touch.clientX, touch.clientY, event);
-    }
-});
+            // Function to zoom out
+            function zoomOut() {
+                zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
+                updateImageTransform();
+            }
 
-// Common function to move the image (both desktop and mobile)
-function moveImage(x, y, event) {
-    event.preventDefault(); // Prevent default scrolling behavior during drag
-
-    const dx = x - initialMouseX;
-    const dy = y - initialMouseY;
-
-    currentX += dx;
-    currentY += dy;
-
-    // Update image position
-    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
-
-    // Update initial mouse/touch position
-    initialMouseX = x;
-    initialMouseY = y;
-}
-
-// Detect pinch-zoom gesture and adjust zoom level (for touch devices)
-image.addEventListener('touchmove', (event) => {
-    if (event.touches.length > 1) {
-        // Let the browser handle pinch-zooming (don't call preventDefault here)
-        return;
-    }
-});
-
-// Function to zoom in
-function zoomIn() {
-    zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
-    updateImageTransform();
-}
-
-// Function to zoom out
-function zoomOut() {
-    zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
-    updateImageTransform();
-}
-
-// Update image transform based on zoom
-function updateImageTransform() {
-    if (zoomLevel === 1) {
-        currentX = 0;
-        currentY = 0;
-        image.style.transform = 'translate(-50%, -50%) scale(1)';
-    } else {
-        image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
-    }
-}
+            // Update image transform based on zoom
+            function updateImageTransform() {
+                if (zoomLevel === 1) {
+                    // Reset offsets when zooming out to original size
+                    currentX = 0;
+                    currentY = 0;
+                    image.style.transform = 'translate(-50%, -50%) scale(1)';
+                } else {
+                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+                }
+            }
 
             // Function to handle changing the image
             function updateGroundChart() {
@@ -942,7 +909,39 @@ function updateImageTransform() {
                 });
             }
 
+            // Function to save flight plan with a timestamp
+            function saveFlightPlan(flightPlan) {
+                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+                const timestamp = Date.now(); // Get the current time
 
+                flightPlan.timestamp = timestamp; // Add timestamp to the flight plan
+                flightPlans.push(flightPlan);
+                localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
+
+                // Automatically remove the flight plan after 25 minutes (1500000 milliseconds)
+                setTimeout(() => {
+                    deleteExpiredFlightPlans();
+                    displayFlightPlans();
+                }, 1500000); // 25 minutes
+
+                displayFlightPlans(); // Refresh UI
+            }
+
+            // Function to delete expired flight plans
+            function deleteExpiredFlightPlans() {
+                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+                const currentTime = Date.now();
+
+                // Keep flight plans that were added within the last 25 minutes
+                const validFlightPlans = flightPlans.filter(plan => (currentTime - plan.timestamp) < 1500000);
+
+                localStorage.setItem('flightPlans', JSON.stringify(validFlightPlans));
+            }
+
+            // Check and delete expired flight plans on page load
+            window.onload = function () {
+                deleteExpiredFlightPlans(); // Remove expired flight plans when page loads
+            };
 
             // Initial display
             displayFlightPlans();
