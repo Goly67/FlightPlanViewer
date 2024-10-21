@@ -910,39 +910,38 @@
             }
 
             // Function to save flight plan with a timestamp
-            // Function to save flight plan with a timestamp
-function saveFlightPlan(flightPlan) {
-    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-    const timestamp = Date.now(); // Get the current time
+            function saveFlightPlan(flightPlan) {
+                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+                const timestamp = Date.now(); // Get the current time
 
-    flightPlan.timestamp = timestamp; // Add timestamp to the flight plan
-    flightPlans.push(flightPlan);
-    localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
+                flightPlan.timestamp = timestamp; // Add timestamp to the flight plan
+                flightPlans.push(flightPlan);
+                localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
 
-    // Set a timeout to automatically remove the flight plan after 25 minutes (1500000 milliseconds)
-    setTimeout(() => {
-        deleteExpiredFlightPlans(); // This function will be called after 25 minutes
-        displayFlightPlans(); // Refresh UI after deletion
-    }, 1500000); // 25 minutes
+                // Automatically remove the flight plan after 25 minutes (1500000 milliseconds)
+                setTimeout(() => {
+                    deleteExpiredFlightPlans();
+                    displayFlightPlans();
+                }, 1500000); // 25 minutes
 
-    displayFlightPlans(); // Refresh UI immediately after saving
-}
+                displayFlightPlans(); // Refresh UI
+            }
 
-// Function to delete expired flight plans
-function deleteExpiredFlightPlans() {
-    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-    const currentTime = Date.now();
+            // Function to delete expired flight plans
+            function deleteExpiredFlightPlans() {
+                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+                const currentTime = Date.now();
 
-    // Keep flight plans that were added within the last 25 minutes
-    const validFlightPlans = flightPlans.filter(plan => (currentTime - plan.timestamp) < 1500000);
+                // Keep flight plans that were added within the last 25 minutes
+                const validFlightPlans = flightPlans.filter(plan => (currentTime - plan.timestamp) < 1500000);
 
-    localStorage.setItem('flightPlans', JSON.stringify(validFlightPlans));
-}
+                localStorage.setItem('flightPlans', JSON.stringify(validFlightPlans));
+            }
 
-// Initial display of flight plans
-displayFlightPlans();
-displayNotes();
-
+            // Check and delete expired flight plans on page load
+            window.onload = function () {
+                deleteExpiredFlightPlans(); // Remove expired flight plans when page loads
+            };
 
             // Initial display
             displayFlightPlans();
