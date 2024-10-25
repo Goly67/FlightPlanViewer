@@ -343,30 +343,8 @@
                 flightPlans.push(flightPlan);
                 localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
 
-                // Automatically remove the flight plan after 25 minutes (1500000 milliseconds)
-                setTimeout(() => {
-                    deleteExpiredFlightPlans();
-                    displayFlightPlans();
-                }, 1500000); // 25 minutes
-
                 displayFlightPlans(); // Refresh UI
             }
-
-            // Function to delete expired flight plans
-            function deleteExpiredFlightPlans() {
-                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-                const currentTime = Date.now();
-
-                // Keep flight plans that were added within the last 25 minutes
-                const validFlightPlans = flightPlans.filter(plan => (currentTime - plan.timestamp) < 1500000);
-
-                localStorage.setItem('flightPlans', JSON.stringify(validFlightPlans));
-            }
-
-            // Check and delete expired flight plans on page load
-            window.onload = function () {
-                deleteExpiredFlightPlans(); // Remove expired flight plans when page loads
-            };
 
             // Initial display
             displayFlightPlans();
