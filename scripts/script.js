@@ -149,15 +149,17 @@ function updateGroundChart() {
     localStorage.setItem('selectedGroundChart', selectedValue);
 }
 
+// Load the saved ground chart on page load
 window.onload = function () {
     // Check if there's a saved selection in localStorage
     const savedValue = localStorage.getItem('selectedGroundChart');
     if (savedValue) {
         const selector = document.getElementById('groundChartSelector');
         selector.value = savedValue; // Set the selector to the saved value
-        updateGroundChart(); // Update the image based on the saved value
+        image.src = savedValue; // Update the image based on the saved value
+        updateImageTransform(); // Ensure the image is transformed correctly
     }
-};
+}
 
 
 function displayFlightPlans() {
