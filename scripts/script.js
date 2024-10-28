@@ -137,27 +137,41 @@ window.onload = function () {
     }
 };
 
-function updateGroundChart() {
-                const selector = document.getElementById('groundChartSelector');
-                const image = document.getElementById('groundChartImage');
-                const selectedValue = selector.value;
+document.addEventListener("DOMContentLoaded", function () {
+    // Get references to the dropdown and image elements
+    const selector = document.getElementById("groundChartSelector");
+    const image = document.getElementById("groundChartImage");
 
-                // Update the image source based on the selected option
-                image.src = selectedValue;
+    // Function to update the ground chart based on the selected value
+    function updateGroundChart() {
+        const selectedValue = selector.value;
 
-                // Save the selected option to localStorage
-                localStorage.setItem('selectedGroundChart', selectedValue);
-            }
+        if (selectedValue) {
+            // Update the image source
+            image.src = selectedValue;
 
-            window.onload = function () {
-                // Check if there's a saved selection in localStorage
-                const savedValue = localStorage.getItem('selectedGroundChart');
-                if (savedValue) {
-                    const selector = document.getElementById('groundChartSelector');
-                    selector.value = savedValue; // Set the selector to the saved value
-                    updateGroundChart(); // Update the image based on the saved value
-                }
-            };
+            // Save the selected value to localStorage
+            localStorage.setItem('selectedGroundChart', selectedValue);
+        }
+    }
+
+    // Load the saved ground chart on page load
+    window.onload = function () {
+        // Check if there's a saved selection in localStorage
+        const savedValue = localStorage.getItem('selectedGroundChart');
+
+        if (savedValue) {
+            // Set the dropdown to the saved value
+            selector.value = savedValue; 
+
+            // Update the image based on the saved value
+            image.src = savedValue; 
+        }
+    };
+
+    // Attach the updateGroundChart function to the dropdown change event
+    selector.addEventListener('change', updateGroundChart);
+});
 
 
 function displayFlightPlans() {
