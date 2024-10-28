@@ -250,29 +250,29 @@ function handleKeyDown(event, listId, inputId, isEditing = false, index = null) 
     }
 }
 
-// Update the editNote function to include keydown event listener for edit inputs
 function editNote(index, listId) {
-    const noteItem = document.querySelectorAll('.note-item')[index];
+    const notesList = document.getElementById(listId); // Get the specific list
+    const noteItem = notesList.querySelectorAll('.note-item')[index]; // Target note by index within this list
     const noteText = noteItem.querySelector('.note-text');
     const editContainer = noteItem.querySelector('.edit-container');
-    const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
+    const editInput = noteItem.querySelector(`#editNote-${index}`);
     const editButton = noteItem.querySelector('.edit-note');
     const deleteButton = noteItem.querySelector('.delete-note');
 
-    // Toggle visibility of elements
+    // Toggle visibility for editing
     noteText.style.display = 'none';
     editContainer.style.display = 'flex';
-
-    // Hide the Edit and Delete buttons while editing
     editButton.style.display = 'none';
     deleteButton.style.display = 'none';
 
-    // Focus the edit input
+    // Focus the input field and set the cursor at the end of the text
     editInput.focus();
-    editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
+    editInput.setSelectionRange(editInput.value.length, editInput.value.length);
 
-    // Add event listener for keydown event to handle Enter key
-    editInput.addEventListener('keydown', (event) => handleKeyDown(event, listId, `editNote-${index}`, true, index));
+    // Add a keydown listener to handle Enter key
+    editInput.addEventListener('keydown', (event) => 
+        handleKeyDown(event, listId, `editNote-${index}`, true, index)
+    );
 }
 
 // Function to add a new note
@@ -312,40 +312,41 @@ function deleteNote(index, listId) {
 }
 
 function updateNote(index, listId) {
-    const notes = JSON.parse(localStorage.getItem(listId)) || [];
-    const noteItem = document.querySelectorAll('.note-item')[index];
-    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
+    const notesList = document.getElementById(listId); // Get the specific list
+    const notes = JSON.parse(localStorage.getItem(listId)) || []; // Get notes for this list
+    const noteItem = notesList.querySelectorAll('.note-item')[index]; // Target note by index
+    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim();
 
     if (updatedNote === "") {
-        // If the updated note is empty, delete it
-        deleteNote(index, listId);
+        deleteNote(index, listId); // If the note is empty, delete it
     } else {
         // Update the note in localStorage
         notes[index] = updatedNote;
         localStorage.setItem(listId, JSON.stringify(notes));
 
-        // Update the UI with the new note text
+        // Update the UI
         const noteText = noteItem.querySelector('.note-text');
         noteText.textContent = updatedNote;
 
-        // Hide the edit input and show the updated note
-        cancelEdit(index, listId);  // Call cancelEdit to hide the input and show the updated text
+        cancelEdit(index, listId); // Cancel edit mode after updating
     }
 }
 
 function cancelEdit(index, listId) {
-    const noteItem = document.querySelectorAll('.note-item')[index];
+    const notesList = document.getElementById(listId); // Get the specific list
+    const noteItem = notesList.querySelectorAll('.note-item')[index]; // Target note by index
     const noteText = noteItem.querySelector('.note-text');
     const editContainer = noteItem.querySelector('.edit-container');
     const editButton = noteItem.querySelector('.edit-note');
     const deleteButton = noteItem.querySelector('.delete-note');
 
+    // Restore visibility after canceling edit
     noteText.style.display = 'block';
     editContainer.style.display = 'none';
-
     editButton.style.display = 'block';
     deleteButton.style.display = 'block';
 }
+
 
 
 function copyServer() {
