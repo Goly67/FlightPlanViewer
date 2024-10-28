@@ -37,7 +37,7 @@ body {
     border-radius: 20px;
     padding: 2rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+    max-width: 990px;
     margin: 0 auto;
     backdrop-filter: blur(10px);
 }
@@ -54,12 +54,14 @@ h2 {
 
 h1 {
     font-size: 2.5rem;
+    text-align: center;
 
 }
 
 h2 {
     font-size: 2rem;
     margin-top: -1rem;
+    text-align: center;
 }
 
 .flight-plan {
@@ -103,7 +105,6 @@ h2 {
 
 .notes-section {
     margin-top: 2rem;
-    border-top: 2px solid var(--primary-color);
     padding-top: 2rem;
 }
 
@@ -122,6 +123,12 @@ h2 {
     padding: 1rem;
     margin-bottom: 1rem;
     transition: all 0.3s ease;
+}
+
+.notes-section {
+    margin-top: 2rem;
+    border-top: 2px solid var(--primary-color);
+    padding-top: 2rem;
 }
 
 .note-item:hover {
@@ -434,6 +441,7 @@ select:focus {
     cursor: pointer;
     margin-right: 10px;
     transition: background-color 0.3s, transform 0.2s;
+    margin-top: -1rem;
 }
 
 /* Hover effect */
@@ -448,4 +456,139 @@ select:focus {
 .button-container {
     margin-top: 15px;
     text-align: center;
+}
+
+.wrapper {
+    display: flex; /* Enables side-by-side layout */
+    justify-content: space-between; /* Space between left and right containers */
+    gap: 20px; /* Space between the two containers */
+    margin: auto; /* Center the wrapper horizontally */
+    padding: 2rem;
+}
+
+.left-container, .right-container {
+    flex: 1; /* Both take equal space */
+    min-width: 400px; /* Ensure they don’t shrink below this */
+    max-width: calc(50% - 10px); /* Ensure they take half the width minus gaps */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-container {
+    background-color: #f0f8ff; /* Different background for differentiation */
+}
+
+/* Ensure proper stacking on smaller screens */
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column; /* Stack containers vertically */
+    }
+    
+    .left-container, .right-container {
+        max-width: 100%; /* Full width when stacked */
+        margin-bottom: 20px; /* Space between stacked containers */
+    }
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    height: 910px;
+}
+
+.local-news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.local-news-item-image {
+    width: 100%;
+    /* Full width by default */
+    height: 780px;
+    /* Maintain aspect ratio */
+    object-fit: contain;
+    /* Adjust as needed */
+}
+
+
+.local-news-item {
+    background-color: #f0f8ff; /* Different background for differentiation */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 780px;
+}
+
+.local-news-item-content {
+    padding: 20px;
+    flex-grow: 1;
+    /* This allows the content to expand and fill available space */
+}
+
+.local-news-item h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.local-news-item p {
+    font-size: 1.25rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.local-news-item .date {
+    font-size: 1rem;
+    color: var(--muted-color);
+}
+
+.windy-iframe {
+    border-radius: 15px;  /* Adjust to your preference */
+    overflow: hidden;     /* Ensure the content stays within the rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+    min-height: 735px;
+}
+
+#image-container:fullscreen {
+    width: 100%;
+    height: 100%;
+    background-color: #fff; /* Optional: background color for full screen */
+}
+
+#fullscreen-btn {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 21px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* Remove border */
+}
+
+@media (max-width: 768px) {
+    .local-news-item h3 {
+        font-size: 1.5rem;
+    }
+
+    .local-news-item p {
+        font-size: 1rem;
+    }
 }

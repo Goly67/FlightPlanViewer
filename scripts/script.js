@@ -1,156 +1,173 @@
-            let zoomLevel = 1; // Initial zoom level
-            let isDragging = false; // For tracking drag status
-            let currentX = 0, currentY = 0; // Track current image position
-            let initialMouseX, initialMouseY; // Initial mouse position
+let zoomLevel = 1; // Initial zoom level
+let isDragging = false; // For tracking drag status
+let currentX = 0, currentY = 0; // Track current image position
+let initialMouseX, initialMouseY; // Initial mouse position
 
-            const image = document.getElementById('groundChartImage');
-            const container = document.getElementById('image-container');
+const image = document.getElementById('groundChartImage');
+const container = document.getElementById('image-container');
 
-            // Disable default drag behavior of the image
-            image.addEventListener('dragstart', (event) => {
-                event.preventDefault();
-            });
+// Disable default drag behavior of the image
+image.addEventListener('dragstart', (event) => {
+    event.preventDefault();
+});
 
-            // Pointer down to start dragging
-            image.addEventListener('pointerdown', (event) => {
-                if (zoomLevel > 1) {
-                    isDragging = true;
-                    image.setPointerCapture(event.pointerId); // Capture pointer events for this element
-                    image.style.cursor = 'grabbing';
+// Pointer down to start dragging
+image.addEventListener('pointerdown', (event) => {
+    if (zoomLevel > 1) {
+        isDragging = true;
+        image.setPointerCapture(event.pointerId); // Capture pointer events for this element
+        image.style.cursor = 'grabbing';
 
-                    initialMouseX = event.clientX;
-                    initialMouseY = event.clientY;
+        initialMouseX = event.clientX;
+        initialMouseY = event.clientY;
 
-                    // Prevent text selection while dragging
-                    document.body.style.userSelect = 'none';
-                }
-            });
+        // Prevent text selection while dragging
+        document.body.style.userSelect = 'none';
+    }
+});
 
-            // Pointer up to stop dragging
-            image.addEventListener('pointerup', () => {
-                isDragging = false;
-                image.style.cursor = 'grab';
-                // Re-enable text selection
-                document.body.style.userSelect = '';
-            });
+// Pointer up to stop dragging
+image.addEventListener('pointerup', () => {
+    isDragging = false;
+    image.style.cursor = 'grab';
+    // Re-enable text selection
+    document.body.style.userSelect = '';
+});
 
-            // Pointer move to handle dragging
-            image.addEventListener('pointermove', (event) => {
-                if (isDragging) {
-                    const dx = event.clientX - initialMouseX;
-                    const dy = event.clientY - initialMouseY;
+// Pointer move to handle dragging
+image.addEventListener('pointermove', (event) => {
+    if (isDragging) {
+        const dx = event.clientX - initialMouseX;
+        const dy = event.clientY - initialMouseY;
 
-                    // Update current position directly
-                    currentX += dx;
-                    currentY += dy;
+        // Update current position directly
+        currentX += dx;
+        currentY += dy;
 
-                    // Update image position
-                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+        // Update image position
+        image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
 
-                    // Update initial mouse position
-                    initialMouseX = event.clientX;
-                    initialMouseY = event.clientY;
-                }
-            });
+        // Update initial mouse position
+        initialMouseX = event.clientX;
+        initialMouseY = event.clientY;
+    }
+});
 
-            // Function to zoom in
-            function zoomIn() {
-                zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
-                updateImageTransform();
-            }
+// Function to zoom in
+function zoomIn() {
+    zoomLevel = Math.min(zoomLevel + 0.2, 3); // Cap zoom level to 3
+    updateImageTransform();
+}
 
-            // Function to zoom out
-            function zoomOut() {
-                zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
-                updateImageTransform();
-            }
+// Function to zoom out
+function zoomOut() {
+    zoomLevel = Math.max(zoomLevel - 0.2, 1); // Minimum zoom level of 1
+    updateImageTransform();
+}
 
-            // Update image transform based on zoom
-            function updateImageTransform() {
-                if (zoomLevel === 1) {
-                    // Reset offsets when zooming out to original size
-                    currentX = 0;
-                    currentY = 0;
-                    image.style.transform = 'translate(-50%, -50%) scale(1)';
-                } else {
-                    image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
-                }
-            }
+// Update image transform based on zoom
+function updateImageTransform() {
+    if (zoomLevel === 1) {
+        // Reset offsets when zooming out to original size
+        currentX = 0;
+        currentY = 0;
+        image.style.transform = 'translate(-50%, -50%) scale(1)';
+    } else {
+        image.style.transform = `translate(${currentX}px, ${currentY}px) scale(${zoomLevel})`;
+    }
+}
 
-            // Function to handle changing the image
-            function updateGroundChart() {
-                const selector = document.getElementById('groundChartSelector');
-                const selectedValue = selector.value;
+// Function to handle changing the image
+function updateGroundChart() {
+    const selector = document.getElementById('groundChartSelector');
+    const selectedValue = selector.value;
 
-                // Update image source
-                image.src = selectedValue;
+    // Update image source
+    image.src = selectedValue;
 
-                // Reset zoom level and transform to center
-                zoomLevel = 1;
-                currentX = 0;
-                currentY = 0;
-                image.style.transform = 'translate(-50%, -50%) scale(1)';
-            }
+    // Reset zoom level and transform to center
+    zoomLevel = 1;
+    currentX = 0;
+    currentY = 0;
+    image.style.transform = 'translate(-50%, -50%) scale(1)';
+}
+
+const fullscreenButton = document.getElementById('fullscreen-btn');
+const iframe = document.getElementById('groundChartImage');
+
+// Toggle full screen
+function toggleFullScreen() {
+    if (!document.fullscreenElement) {
+        // Request full screen for the iframe
+        iframe.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Event listener for fullscreen button
+fullscreenButton.addEventListener('click', toggleFullScreen);
+
+function displayFrequency() {
+    const dropdown = document.getElementById('frequencyDropdown');
+    const selectedFrequency = dropdown.value; // Get selected frequency
+    const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
+
+    console.log("Selected Frequency:", selectedFrequency); // Debugging log
+
+    if (selectedFrequency) {
+        displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
+        localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
+    } else {
+        displayElement.textContent = ''; // Clear if nothing selected
+    }
+}
+
+window.onload = function () {
+    // Check if there's a saved selection in localStorage
+    const savedFrequency = localStorage.getItem('selectedFrequency');
+    console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
+
+    if (savedFrequency) {
+        const dropdown = document.getElementById('frequencyDropdown');
+        dropdown.value = savedFrequency; // Set the dropdown to the saved value
+        displayFrequency(); // Display the saved frequency
+    }
+};
+
+function updateGroundChart() {
+    const selector = document.getElementById('groundChartSelector');
+    const image = document.getElementById('groundChartImage');
+    const selectedValue = selector.value;
+
+    // Update the image source based on the selected option
+    image.src = selectedValue;
+
+    // Save the selected option to localStorage
+    localStorage.setItem('selectedGroundChart', selectedValue);
+}
+
+window.onload = function () {
+    // Check if there's a saved selection in localStorage
+    const savedValue = localStorage.getItem('selectedGroundChart');
+    if (savedValue) {
+        const selector = document.getElementById('groundChartSelector');
+        selector.value = savedValue; // Set the selector to the saved value
+        updateGroundChart(); // Update the image based on the saved value
+    }
+};
 
 
-            function displayFrequency() {
-                const dropdown = document.getElementById('frequencyDropdown');
-                const selectedFrequency = dropdown.value; // Get selected frequency
-                const displayElement = document.getElementById('frequencyDisplay'); // Get the display element
-
-                console.log("Selected Frequency:", selectedFrequency); // Debugging log
-
-                if (selectedFrequency) {
-                    displayElement.textContent = `${selectedFrequency}`; // Display selected frequency
-                    localStorage.setItem('selectedFrequency', selectedFrequency); // Save to localStorage
-                } else {
-                    displayElement.textContent = ''; // Clear if nothing selected
-                }
-            }
-
-            window.onload = function () {
-                // Check if there's a saved selection in localStorage
-                const savedFrequency = localStorage.getItem('selectedFrequency');
-                console.log("Saved Frequency from localStorage:", savedFrequency); // Debugging log
-
-                if (savedFrequency) {
-                    const dropdown = document.getElementById('frequencyDropdown');
-                    dropdown.value = savedFrequency; // Set the dropdown to the saved value
-                    displayFrequency(); // Display the saved frequency
-                }
-            };
-
-            function updateGroundChart() {
-                const selector = document.getElementById('groundChartSelector');
-                const image = document.getElementById('groundChartImage');
-                const selectedValue = selector.value;
-
-                // Update the image source based on the selected option
-                image.src = selectedValue;
-
-                // Save the selected option to localStorage
-                localStorage.setItem('selectedGroundChart', selectedValue);
-            }
-
-            window.onload = function () {
-                // Check if there's a saved selection in localStorage
-                const savedValue = localStorage.getItem('selectedGroundChart');
-                if (savedValue) {
-                    const selector = document.getElementById('groundChartSelector');
-                    selector.value = savedValue; // Set the selector to the saved value
-                    updateGroundChart(); // Update the image based on the saved value
-                }
-            };
-
-
-            function displayFlightPlans() {
-                const flightPlansList = document.getElementById('flightPlansList');
-                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-                if (flightPlans.length === 0) {
-                    flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
-                    return;
-                }
-                flightPlansList.innerHTML = flightPlans.map(plan => `
+function displayFlightPlans() {
+    const flightPlansList = document.getElementById('flightPlansList');
+    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    if (flightPlans.length === 0) {
+        flightPlansList.innerHTML = '<p class="no-plans">No flight plans submitted yet.</p>';
+        return;
+    }
+    flightPlansList.innerHTML = flightPlans.map(plan => `
         <div class="flight-plan">
             <h3>${plan.callsign} - ${plan.departure} to ${plan.arrival}</h3>
             <p><strong>Aircraft:</strong> ${plan.aircraft}</p>
@@ -160,192 +177,202 @@
             <p><strong>Squawk:</strong> ${plan.squawk || 'Not assigned'}</p>
         </div>
     `).join('');
-            }
+}
 
-            function displayNotes() {
-                const notesList = document.getElementById('notesList');
-                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+function displayNotes(listId) {
+    const notesList = document.getElementById(listId);
+    const notes = JSON.parse(localStorage.getItem(listId)) || [];
 
-                if (notes.length === 0) {
-                    notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
-                    return;
-                }
+    if (notes.length === 0) {
+        notesList.innerHTML = '<p class="no-notes">No notes added yet.</p>';
+        return;
+    }
 
-                notesList.innerHTML = `
+    notesList.innerHTML = `
         <ul class="notes-list">
             ${notes.map((note, index) => `
                 <li class="note-item">
                     <span class="note-text">${note}</span> 
-                    <button class="edit-note" onclick="editNote(${index})">Edit</button>
-                    <button class="delete-note" onclick="deleteNote(${index})">Delete</button>
+                    <button class="edit-note" onclick="editNote(${index}, '${listId}')">Edit</button>
+                    <button class="delete-note" onclick="deleteNote(${index}, '${listId}')">Delete</button>
                     <div class="edit-container" style="display: none;"> 
                         <input type="text" id="editNote-${index}" value="${note}">
-                        <button class="update-note" onclick="updateNote(${index})">Update</button>
-                        <button class="cancel-edit" onclick="cancelEdit(${index})">Cancel</button>
+                        <button class="update-note" onclick="updateNote(${index}, '${listId}')">Update</button>
+                        <button class="cancel-edit" onclick="cancelEdit(${index}, '${listId}')">Cancel</button>
                     </div>
                 </li>
             `).join('')}
         </ul>
     `;
-            }
+}
 
-            function addNote() {
-                const newNoteInput = document.getElementById('newNote');
-                const noteText = newNoteInput.value.trim();
+// Function to handle keydown event for adding and updating notes
+function handleKeyDown(event, listId, inputId, isEditing = false, index = null) {
+    if (event.key === 'Enter') { // Check if the pressed key is Enter
+        event.preventDefault(); // Prevent form submission or any default action
+        if (isEditing && index !== null) {
+            updateNote(index, listId); // Update the note if in edit mode
+        } else if (!isEditing) {
+            addNote(listId, inputId); // Otherwise, add a new note
+        }
+    }
+}
 
-                if (noteText) {
-                    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-                    notes.push(noteText);
-                    localStorage.setItem('notes', JSON.stringify(notes));
-                    newNoteInput.value = '';
-                    displayNotes();
-                }
-            }
+// Update the editNote function to include keydown event listener for edit inputs
+function editNote(index, listId) {
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const noteText = noteItem.querySelector('.note-text');
+    const editContainer = noteItem.querySelector('.edit-container');
+    const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
 
-            document.getElementById('newNote').addEventListener('keyup', function (event) {
-                if (event.key === 'Enter') {
-                    addNote(); // Call the addNote function when Enter is pressed
-                }
-            });
+    // Toggle visibility of elements
+    noteText.style.display = 'none';
+    editContainer.style.display = 'flex';
 
-            document.addEventListener('keyup', function (event) {
-                if (event.key === 'Enter') {
-                    const editInputs = document.querySelectorAll('.edit-container input');
-                    editInputs.forEach((input, index) => {
-                        if (input === event.target) {
-                            updateNote(index);
-                        }
-                    });
-                }
-            });
+    // Hide the Edit and Delete buttons while editing
+    editButton.style.display = 'none';
+    deleteButton.style.display = 'none';
 
-            function deleteNote(index) {
-                const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    // Focus the edit input
+    editInput.focus();
+    editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
 
-                notes.splice(index, 1);
-                localStorage.setItem('notes', JSON.stringify(notes));
+    // Add event listener for keydown event to handle Enter key
+    editInput.addEventListener('keydown', (event) => handleKeyDown(event, listId, `editNote-${index}`, true, index));
+}
 
-                displayNotes(); // Call displayNotes after deletion to refresh the UI
-            }
+// Function to add a new note
+function addNote(listId, inputId) {
+    const newNoteInput = document.getElementById(inputId);
+    const noteText = newNoteInput.value.trim();
 
-            function updateNote(index) {
-                const notes = JSON.parse(localStorage.getItem('notes')) || [];
-                const noteItem = document.querySelectorAll('.note-item')[index];
-                const originalNote = noteItem.querySelector('.note-text').textContent.trim(); // Get the original note text
+    if (noteText) {
+        const notes = JSON.parse(localStorage.getItem(listId)) || [];
+        notes.push(noteText);
+        localStorage.setItem(listId, JSON.stringify(notes));
+        newNoteInput.value = ''; // Clear the input after adding a note
+        displayNotes(listId); // Display notes for the specific section
+    }
+}
 
-                notes[index] = originalNote; // Update the note in localStorage with the original text
-                localStorage.setItem('notes', JSON.stringify(notes));
+// When the page loads, set up the event listeners
+window.onload = function () {
+    displayNotes('notesList1'); // For the first notes section
+    displayNotes('notesList2'); // For the second notes section
+    displayNotes('notesList3'); // For the third notes section
 
-                cancelEdit(index); // Hide the edit input and show the updated text
-            }
-
-            function editNote(index) {
-                const noteItem = document.querySelectorAll('.note-item')[index];
-                const noteText = noteItem.querySelector('.note-text');
-                const editContainer = noteItem.querySelector('.edit-container');
-                const editInput = noteItem.querySelector(`#editNote-${index}`); // Get the edit input field
-                const editButton = noteItem.querySelector('.edit-note');
-                const deleteButton = noteItem.querySelector('.delete-note');
-
-                // Toggle visibility of elements
-                noteText.style.display = 'none';
-                editContainer.style.display = 'flex';
-
-                // Hide the Edit and Delete buttons while editing
-                editButton.style.display = 'none';
-                deleteButton.style.display = 'none';
-
-                // Focus the edit input
-                editInput.focus();
-                editInput.setSelectionRange(editInput.value.length, editInput.value.length); // Set cursor at the end
-            }
-
-            function updateNote(index) {
-                const notes = JSON.parse(localStorage.getItem('notes')) || [];
-                const noteItem = document.querySelectorAll('.note-item')[index];
-                const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
-
-                if (updatedNote === "") {
-                    // If the updated note is empty, delete it
-                    deleteNote(index);
-                } else {
-                    // Update the note in localStorage
-                    notes[index] = updatedNote;
-                    localStorage.setItem('notes', JSON.stringify(notes));
-
-                    // Update the UI with the new note text
-                    const noteText = noteItem.querySelector('.note-text');
-                    noteText.textContent = updatedNote;
-
-                    // Hide the edit input and show the updated note
-                    cancelEdit(index);  // Call cancelEdit to hide the input and show the updated text
-                }
-            }
-
-            function cancelEdit(index) {
-                const noteItem = document.querySelectorAll('.note-item')[index];
-                const noteText = noteItem.querySelector('.note-text');
-                const editContainer = noteItem.querySelector('.edit-container');
-                const editButton = noteItem.querySelector('.edit-note');
-                const deleteButton = noteItem.querySelector('.delete-note');
-
-                // Restore visibility of the note text and hide the input field
-                noteText.style.display = 'block';
-                editContainer.style.display = 'none';
-
-                // Show the Edit and Delete buttons again
-                editButton.style.display = 'inline-block';
-                deleteButton.style.display = 'inline-block';
-            }
+    // Add event listeners for keydown on note input fields
+    document.getElementById('newNote1').addEventListener('keydown', (event) => handleKeyDown(event, 'notesList1', 'newNote1'));
+    document.getElementById('newNote2').addEventListener('keydown', (event) => handleKeyDown(event, 'notesList2', 'newNote2'));
+    document.getElementById('newNote3').addEventListener('keydown', (event) => handleKeyDown(event, 'notesList3', 'newNote3'));
+};
 
 
-            function cancelEdit(index) {
-                const noteItem = document.querySelectorAll('.note-item')[index];
-                const noteText = noteItem.querySelector('.note-text');
-                const editContainer = noteItem.querySelector('.edit-container');
-                const editButton = noteItem.querySelector('.edit-note');
-                const deleteButton = noteItem.querySelector('.delete-note');
+function deleteNote(index, listId) {
+    const notes = JSON.parse(localStorage.getItem(listId)) || [];
 
-                noteText.style.display = 'block';
-                editContainer.style.display = 'none';
+    notes.splice(index, 1);
+    localStorage.setItem(listId, JSON.stringify(notes));
 
-                editButton.style.display = 'block';
-                deleteButton.style.display = 'block';
-            }
+    displayNotes(listId); // Call displayNotes after deletion to refresh the UI
+}
 
-            function copyServer() {
-                const textToCopy = '31xxRy8Zpy'; // Server code to copy
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    alert('Server code copied to clipboard: ' + textToCopy);
-                });
-            }
+function updateNote(index, listId) {
+    const notes = JSON.parse(localStorage.getItem(listId)) || [];
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const updatedNote = noteItem.querySelector(`#editNote-${index}`).value.trim(); // Get the updated note text
 
-            function copyPassword() {
-                const textToCopy = 'PUBLICATC'; // Password to copy
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    alert('Password copied to clipboard: ' + textToCopy);
-                });
-            }
+    if (updatedNote === "") {
+        // If the updated note is empty, delete it
+        deleteNote(index, listId);
+    } else {
+        // Update the note in localStorage
+        notes[index] = updatedNote;
+        localStorage.setItem(listId, JSON.stringify(notes));
 
-            function copyAtis() {
-                const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n[**[CLICK HERE TO FILL UP FLIGHT PLAN]**](https://forms.gle/WfpsCb9wpCvrbcSc6)\n\n`;
-                navigator.clipboard.writeText(atisText).then(() => {
-                    alert('ATIS copied to clipboard.');
-                });
-            }
+        // Update the UI with the new note text
+        const noteText = noteItem.querySelector('.note-text');
+        noteText.textContent = updatedNote;
 
-            // Function to save flight plan with a timestamp
-            function saveFlightPlan(flightPlan) {
-                const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
-                const timestamp = Date.now(); // Get the current time
+        // Hide the edit input and show the updated note
+        cancelEdit(index, listId);  // Call cancelEdit to hide the input and show the updated text
+    }
+}
 
-                flightPlan.timestamp = timestamp; // Add timestamp to the flight plan
-                flightPlans.push(flightPlan);
-                localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
+function cancelEdit(index, listId) {
+    const noteItem = document.querySelectorAll('.note-item')[index];
+    const noteText = noteItem.querySelector('.note-text');
+    const editContainer = noteItem.querySelector('.edit-container');
+    const editButton = noteItem.querySelector('.edit-note');
+    const deleteButton = noteItem.querySelector('.delete-note');
 
-                displayFlightPlans(); // Refresh UI
-            }
+    noteText.style.display = 'block';
+    editContainer.style.display = 'none';
 
-            // Initial display
-            displayFlightPlans();
-            displayNotes();
+    editButton.style.display = 'block';
+    deleteButton.style.display = 'block';
+}
+
+
+function copyServer() {
+    const textToCopy = '31xxRy8Zpy'; // Server code to copy
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Server code copied to clipboard: ' + textToCopy);
+    });
+}
+
+function copyPassword() {
+    const textToCopy = 'PUBLICATC'; // Password to copy
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Password copied to clipboard: ' + textToCopy);
+    });
+}
+
+function copyAtis() {
+    const atisText = `Gran Canaria (GCLP)\n\nGCLP_APP [121.300]: @xaie9\n\n[**[CLICK HERE TO FILL UP FLIGHT PLAN]**](https://forms.gle/WfpsCb9wpCvrbcSc6)\n\n`;
+    navigator.clipboard.writeText(atisText).then(() => {
+        alert('ATIS copied to clipboard.');
+    });
+}
+
+// Function to save flight plan with a timestamp
+function saveFlightPlan(flightPlan) {
+    const flightPlans = JSON.parse(localStorage.getItem('flightPlans')) || [];
+    const timestamp = Date.now(); // Get the current time
+
+    flightPlan.timestamp = timestamp; // Add timestamp to the flight plan
+    flightPlans.push(flightPlan);
+    localStorage.setItem('flightPlans', JSON.stringify(flightPlans));
+
+    displayFlightPlans(); // Refresh UI
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const localNewsItem = document.getElementById('localNewsItem');
+
+    // Define your single news item here
+    const newsItem = {
+        iframeSrc: "https://dev.project-flight.com/" // Replace with the actual iframe source you need
+    };
+
+    function createNewsItem(item) {
+        localNewsItem.innerHTML = `
+                        <div class="local-news-item-content">
+                            <iframe 
+                                class="windy-iframe" 
+                                width="100%" 
+                                height="450" 
+                                src="https://dev.project-flight.com/"
+                                frameborder="0">
+                            </iframe>
+                        </div>
+                    `;
+    }
+    createNewsItem(newsItem);
+});
+
+// Initial display
+displayFlightPlans();
+displayNotes();
