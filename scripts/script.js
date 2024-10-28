@@ -138,28 +138,26 @@ window.onload = function () {
 };
 
 function updateGroundChart() {
-    const selector = document.getElementById('groundChartSelector');
-    const image = document.getElementById('groundChartImage');
-    const selectedValue = selector.value;
+                const selector = document.getElementById('groundChartSelector');
+                const image = document.getElementById('groundChartImage');
+                const selectedValue = selector.value;
 
-    // Update the image source based on the selected option
-    image.src = selectedValue;
+                // Update the image source based on the selected option
+                image.src = selectedValue;
 
-    // Save the selected option to localStorage
-    localStorage.setItem('selectedGroundChart', selectedValue);
-}
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedGroundChart', selectedValue);
+            }
 
-// Load the saved ground chart on page load
-window.onload = function () {
-    // Check if there's a saved selection in localStorage
-    const savedValue = localStorage.getItem('selectedGroundChart');
-    if (savedValue) {
-        const selector = document.getElementById('groundChartSelector');
-        selector.value = savedValue; // Set the selector to the saved value
-        image.src = savedValue; // Update the image based on the saved value
-        updateImageTransform(); // Ensure the image is transformed correctly
-    }
-}
+            window.onload = function () {
+                // Check if there's a saved selection in localStorage
+                const savedValue = localStorage.getItem('selectedGroundChart');
+                if (savedValue) {
+                    const selector = document.getElementById('groundChartSelector');
+                    selector.value = savedValue; // Set the selector to the saved value
+                    updateGroundChart(); // Update the image based on the saved value
+                }
+            };
 
 
 function displayFlightPlans() {
