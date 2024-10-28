@@ -137,38 +137,53 @@ window.onload = function () {
     }
 };
 
-// Get references to the dropdown and image elements
-const selector = document.getElementById("groundChartSelector");
+document.addEventListener("DOMContentLoaded", function () {
+    // Get references to the dropdown and image elements
+    const selector = document.getElementById("groundChartSelector");
+    const image = document.getElementById("groundChartImage");
 
-// Function to update the ground chart based on the selected value
-function updateGroundChart() {
-    const selectedValue = selector.value;
+    // Function to update the ground chart based on the selected value
+    function updateGroundChart() {
+        const selectedValue = selector.value;
 
-    if (selectedValue) {
-        // Update the image source
-        image.src = selectedValue;
+        if (selectedValue) {
+            // Update the image source
+            image.src = selectedValue;
 
-        // Save the selected option to localStorage
-        localStorage.setItem('selectedGroundChart', selectedValue);
+            // Save the selected value to localStorage
+            localStorage.setItem('selectedGroundChart', selectedValue);
+        }
     }
-}
 
-// Load the saved ground chart on page load
-window.onload = function () {
-    // Check if there's a saved selection in localStorage
-    const savedValue = localStorage.getItem('selectedGroundChart');
+    // Function to load the saved ground chart on page load
+    function loadSavedGroundChart() {
+        const savedValue = localStorage.getItem('selectedGroundChart');
 
-    if (savedValue) {
-        // Set the dropdown to the saved value
-        selector.value = savedValue; 
+        if (savedValue) {
+            // Set the dropdown to the saved value
+            selector.value = savedValue; 
 
-        // Update the image based on the saved value
-        image.src = savedValue; 
+            // Update the image based on the saved value
+            image.src = savedValue; 
+        }
     }
-};
 
-// Add an event listener to the ground chart selector
-document.getElementById('groundChartSelector').addEventListener('change', updateGroundChart);
+    // Load saved notes for all sections
+    function loadNotes() {
+        displayNotes('notesList1'); // For the first notes section
+        displayNotes('notesList2'); // For the second notes section
+        displayNotes('notesList3'); // For the third notes section
+    }
+
+    // Attach the updateGroundChart function to the dropdown change event
+    selector.addEventListener('change', updateGroundChart);
+
+    // Load the saved ground chart and notes on page load
+    window.onload = function () {
+        loadSavedGroundChart();
+        loadNotes();
+    };
+});
 
 
 function displayFlightPlans() {
